@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manifesto | QAIL</title>
+    <meta name="description" content="SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪝</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div id="navbar"></div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>The Manifesto</h1>
+            <p class="subtitle">SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety.</p>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="container prose">
+            <section>
+                <h2>What is QAIL?</h2>
+                <p>QAIL is not an ORM. It is not a Query Builder.</p>
+                <p><strong>QAIL is a Query Transpiler.</strong></p>
+                <p>It is a lightweight language that sits between your application code and your database. You write
+                    high-density, logic-focused queries in QAIL, and it compiles them instantly into Safe, Optimized,
+                    Raw SQL with zero runtime overhead.</p>
+            </section>
+
+            <section>
+                <h2>The Universal Approach</h2>
+                <p>QAIL is designed to work <strong>everywhere</strong>.</p>
+                <ul>
+                    <li><strong>In Rust:</strong> The <code>qail!()</code> macro compiles it to SQL at build time.</li>
+                    <li><strong>In Node/Browser:</strong> The <code>qail-wasm</code> package compiles it to SQL at
+                        runtime.</li>
+                    <li><strong>Zero Dependencies:</strong> Pure parser + transpiler. You bring your own database
+                        driver.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>One Language. Everywhere.</h2>
+                <div class="comparison-grid">
+                    <div class="code-block qail">
+                        <small>QAIL Query</small>
+                        <code>get::users:'id'email [ 'active == true, 0..10 ]</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT id, email FROM users WHERE active = true LIMIT 10</code>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Simple, Symbolic Syntax</h2>
+                <p>QAIL uses simple symbols to keep queries short and readable.</p>
+
+                <table style="width: 100%; margin: 1rem 0;">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Purpose</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>::</code></td>
+                            <td>The Gate</td>
+                            <td>Action (get, set, del, add)</td>
+                            <td><code>get::</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>:</code></td>
+                            <td>The Link</td>
+                            <td>Connect table to columns</td>
+                            <td><code>users:'id</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>'</code></td>
+                            <td>The Label</td>
+                            <td>Mark a column</td>
+                            <td><code>'email'name</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>'_</code></td>
+                            <td>The Wildcard</td>
+                            <td>All columns</td>
+                            <td><code>users:'_</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>[ ]</code></td>
+                            <td>The Cage</td>
+                            <td>Constraints block</td>
+                            <td><code>[ 'active == true ]</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>==</code></td>
+                            <td>The Equal</td>
+                            <td>Equality check</td>
+                            <td><code>'status == "active"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>+</code>/<code>-</code></td>
+                            <td>Sort Order</td>
+                            <td>ASC/DESC</td>
+                            <td><code>-created_at</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>N..M</code></td>
+                            <td>The Range</td>
+                            <td>Pagination</td>
+                            <td><code>0..10</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>End-to-End Validation</h2>
+                <p>Use QAIL in both your frontend and backend for <strong>consistent query validation</strong>.</p>
+                <p>Your frontend knows exactly what queries are valid — before sending them to the server.</p>
+
+                <div class="code-block qail">
+                    <small>The Architecture</small>
+                    <pre><code>[ ANY FRONTEND ]                 [ ANY BACKEND ]
+(qail-wasm)                      (qail-core)
+     |                                |
+     +--- Construct Query ----------->|
+     |    (Validate locally)          |
+     |                        Re-Validate & Compile
+     |                                |
+     |<-- Return Data (JSON) ---------+</code></pre>
+                </div>
+                <p style="color: var(--text-muted); margin-top: 1rem;">Works with React, Vue, Angular, Node.js, Go,
+                    Python, Rust — any stack.</p>
+            </section>
+
+            <section>
+                <h2>The Promise</h2>
+                <div class="alert alert-info">
+                    <strong>SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety.</strong>
+                </div>
+                <p>QAIL gives you the brevity of a CLI tool, the safety of Rust, and the control of writing raw SQL
+                    strings.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examples | QAIL</title>
+    <meta name="description" content="See QAIL in action with real-world query examples.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪝</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Examples</h1>
+            <p class="subtitle">See QAIL in action with real-world query examples.</p>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="container prose">
+            <section>
+                <h2>Basic Queries</h2>
+                <div class="comparison-grid">
+                    <div class="code-block qail">
+                        <small>Select all users</small>
+                        <code>get::users:'_</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT * FROM users</code>
+                    </div>
+                </div>
+
+                <div class="comparison-grid" style="margin-top: 1.5rem;">
+                    <div class="code-block qail">
+                        <small>Select specific columns</small>
+                        <code>get::users:'id'email'name</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT id, email, name FROM users</code>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Filtering</h2>
+                <div class="comparison-grid">
+                    <div class="code-block qail">
+                        <small>Filter by condition</small>
+                        <code>get::users:'_ [ 'active == true ]</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT * FROM users WHERE active = true</code>
+                    </div>
+                </div>
+
+                <div class="comparison-grid" style="margin-top: 1.5rem;">
+                    <div class="code-block qail">
+                        <small>Fuzzy search</small>
+                        <code>get::users:'id'name [ 'name ~ "john" ]</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT id, name FROM users WHERE name ILIKE '%john%'</code>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Sorting & Pagination</h2>
+                <div class="comparison-grid">
+                    <div class="code-block qail">
+                        <small>Sort descending</small>
+                        <code>get::users:'_ [ -created_at ]</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT * FROM users ORDER BY created_at DESC</code>
+                    </div>
+                </div>
+
+                <div class="comparison-grid" style="margin-top: 1.5rem;">
+                    <div class="code-block qail">
+                        <small>Pagination with range</small>
+                        <code>get::users:'_ [ 20..30 ]</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT * FROM users LIMIT 10 OFFSET 20</code>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Combined Example</h2>
+                <div class="comparison-grid">
+                    <div class="code-block qail">
+                        <small>Full query with filter, sort, and pagination</small>
+                        <code>get::users:'id'email [ 'active == true, -created_at, 0..10 ]</code>
+                    </div>
+                    <div class="code-block sql">
+                        <small>Generated SQL</small>
+                        <code>SELECT id, email FROM users WHERE active = true ORDER BY created_at DESC LIMIT 10</code>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Why QAIL?</h2>
+                <div class="features-grid" style="margin-top: 24px;">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3>Universal</h3>
+                        <p>Works in Rust, Node.js, and the Browser.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Safe</h3>
+                        <p>Compile-time syntax validation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Fast</h3>
+                        <p>Zero runtime overhead.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

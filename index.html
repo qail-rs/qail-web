@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAIL — The Universal Query Transpiler</title>
+    <meta name="description"
+        content="SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety. The portable SQL compiler that runs everywhere.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪝</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div id="navbar"></div>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">
+                <span class="hero-icon">🪝</span>
+                <span>QAIL</span>
+            </h1>
+            <p class="hero-subtitle">The Universal Query Transpiler</p>
+            <p class="hero-tagline">SQL is Assembly. <span class="highlight">Compile to Safety.</span></p>
+
+            <div class="hero-demo">
+                <div class="demo-compare">
+                    <div class="demo-old">
+                        <span class="demo-label">SQL (Assembly)</span>
+                        <code>SELECT id, email FROM users WHERE active = true LIMIT 10;</code>
+                    </div>
+                    <div class="demo-arrow">→</div>
+                    <div class="demo-new">
+                        <span class="demo-label">QAIL</span>
+                        <code class="qail-code">get::users:'id'email [ 'active == true, 0..10 ]</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="docs.html" class="btn btn-primary">
+                    Get Started
+                </a>
+                <a href="philosophy.html" class="btn btn-secondary">
+                    The Manifesto
+                </a>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+                <div class="hero-install">
+                    <code>cargo install qail</code>
+                    <button class="copy-btn" onclick="copyText('cargo install qail', this)">Copy</button>
+                </div>
+                <div class="hero-install">
+                    <code>npm i qail-wasm</code>
+                    <button class="copy-btn" onclick="copyText('npm i qail-wasm', this)">Copy</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why QAIL?</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
+                Write once. Run everywhere. No database dependencies.
+            </p>
+            <div class="features-grid">
+                <div class="feature-card highlight-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Universal</h3>
+                    <p>One language for Rust, Node.js, and the Browser. Works everywhere via WASM.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Compile-Time Safe</h3>
+                    <p>Syntax validated at build time. No live database needed for CI/CD.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Rust-Native Syntax</h3>
+                    <p><code>'</code> for columns, <code>:</code> for links, <code>==</code> for equality. Feels like
+                        Rust.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🦀</div>
+                    <h3>Zero DB Dependencies</h3>
+                    <p>Pure parser + transpiler. You bring your own driver (sqlx, diesel, tokio-postgres).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>End-to-End Validation</h3>
+                    <p>Same query validation in your React frontend and Rust backend.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧬</div>
+                    <h3>AST-First</h3>
+                    <p>Parse → AST → Transpile. Manipulate the AST for permissions, policies, and more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms -->
+    <section class="cta" style="background: var(--surface-2);">
+        <div class="container">
+            <h2>One Language. Everywhere.</h2>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                <div style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🦀</div>
+                    <h4 style="margin: 0;">Rust</h4>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">qail-core + qail!
+                        macro</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
+                    <h4 style="margin: 0;">Browser</h4>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">qail-wasm (~50KB)</p>
+                </div>
+                <div
+                    style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--primary), #9F6BFF); border-radius: 12px; color: white;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📦</div>
+                    <h4 style="margin: 0;">Node.js</h4>
+                    <p style="margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 0.9rem;">npm install qail-wasm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Stop writing Assembly.</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Write Qail. Compile to Safety.</p>
+            <div class="cta-buttons">
+                <a href="docs.html" class="btn btn-primary btn-large">
+                    Read the Docs
+                </a>
+                <a href="https://github.com/qail-rs/qail" class="btn btn-secondary btn-large">
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
