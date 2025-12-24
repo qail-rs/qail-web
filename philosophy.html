@@ -65,7 +65,7 @@
                     style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05);">
                     "I originally built QAIL for internal use to solve my own polyglot headaches. But I realized that
                     keeping it private meant letting other engineers suffer through the same 'Database Dilemma'. I
-                    decided to open-source it so we can all stop writing Assembly."
+                    decided to open-source it so we can all skip the string layer."
                 </blockquote>
             </section>
 
@@ -80,7 +80,7 @@
                     <li><strong>ORMs</strong> provide fantastic productivity, but the abstraction sometimes comes at the
                         cost of fine-grained performance control.</li>
                 </ul>
-                <p>We didn't need a compromise. We needed a <strong>Compiler</strong>.</p>
+                <p>We didn't need a compromise. We needed a <strong>Universal AST</strong>.</p>
             </section>
 
             <section>
@@ -92,17 +92,21 @@
 
                 <div class="comparison-grid">
                     <div class="code-block qail">
-                        <small>Write This (Once)</small>
-                        <code>get::users:'id'email [ 'active == true, 0..10 ]</code>
+                        <small>Build This (Rust)</small>
+                        <code>QailCmd::get("users")
+    .columns(["id", "email"])
+    .filter("active", Eq, true)
+    .limit(10)</code>
                     </div>
                     <div class="code-block sql">
-                        <small>Get This (Everywhere)</small>
+                        <small>Encodes To (Wire Protocol)</small>
                         <code>SELECT id, email FROM users WHERE active = true LIMIT 10</code>
                     </div>
                 </div>
 
-                <p>Now, your team learns <strong>one syntax</strong>. The Rust dev, the Go dev, and the Frontend dev all
-                    speak the same data language.</p>
+                <p>Now, your team builds with <strong>one AST</strong>. The Rust dev, the Go dev, and the Frontend dev
+                    all
+                    use the same data structure.</p>
 
                 <blockquote class="manifesto-quote">
                     "Safety shouldn't require a prison of boilerplate. We moved validation from the 'String' layer to
@@ -129,54 +133,48 @@
             <hr style="margin: 3rem 0; opacity: 0.1;">
 
             <section>
-                <h2>The Syntax</h2>
-                <p>We designed the syntax for <strong>Density and Clarity.</strong> Every character does work. No
-                    boilerplate.</p>
+                <h2>The AST Builder API</h2>
+                <p>We designed the builder API for <strong>Type Safety and Clarity.</strong> Every method is purposeful.
+                    No
+                    strings to parse.</p>
                 <table style="width: 100%; margin: 1rem 0;">
                     <thead>
                         <tr>
-                            <th>Symbol</th>
-                            <th>Name</th>
+                            <th>Method</th>
                             <th>Purpose</th>
                             <th>Example</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>::</code></td>
-                            <td>The Gate</td>
-                            <td>Action (get, set, del, add)</td>
-                            <td><code>get::</code></td>
+                            <td><code>QailCmd::get()</code></td>
+                            <td>SELECT query</td>
+                            <td><code>QailCmd::get("users")</code></td>
                         </tr>
                         <tr>
-                            <td><code>:</code></td>
-                            <td>The Link</td>
-                            <td>Connect table to columns</td>
-                            <td><code>users:'id</code></td>
+                            <td><code>.columns()</code></td>
+                            <td>Select specific columns</td>
+                            <td><code>.columns(["id", "email"])</code></td>
                         </tr>
                         <tr>
-                            <td><code>'</code></td>
-                            <td>The Label</td>
-                            <td>Mark a column</td>
-                            <td><code>'email'name</code></td>
+                            <td><code>.filter()</code></td>
+                            <td>WHERE condition</td>
+                            <td><code>.filter("active", Eq, true)</code></td>
                         </tr>
                         <tr>
-                            <td><code>[ ]</code></td>
-                            <td>The Cage</td>
-                            <td>Constraints block</td>
-                            <td><code>[ 'active == true ]</code></td>
+                            <td><code>.order_by()</code></td>
+                            <td>Sort results</td>
+                            <td><code>.order_by("created_at", Desc)</code></td>
                         </tr>
                         <tr>
-                            <td><code>N..M</code></td>
-                            <td>The Range</td>
+                            <td><code>.limit()</code></td>
                             <td>Pagination</td>
-                            <td><code>0..10</code></td>
+                            <td><code>.limit(10)</code></td>
                         </tr>
                         <tr>
-                            <td><code>-></code></td>
-                            <td>The Join</td>
-                            <td>Relation Arrow</td>
-                            <td><code>users -> posts</code></td>
+                            <td><code>.left_join()</code></td>
+                            <td>Join tables</td>
+                            <td><code>.left_join("profiles", "users.id", "profiles.user_id")</code></td>
                         </tr>
                     </tbody>
                 </table>
