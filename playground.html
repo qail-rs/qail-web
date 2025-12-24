@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAIL Playground — One Syntax, 19 Databases</title>
+    <meta name="description"
+        content="Try QAIL in the interactive playground. Transpile to 19 different database formats in real-time.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Social Meta Tags -->
+    <meta property="og:title" content="QAIL Playground">
+    <meta property="og:description"
+        content="Try QAIL in your browser. Transpile one syntax to 19 different database formats in real-time.">
+    <meta property="og:image" content="https://qail-web.pages.dev/social_preview.svg">
+    <meta property="og:url" content="https://qail-web.pages.dev/playground.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .demo-page {
+            padding: 120px 0 60px;
+        }
+
+        .qail-input-section {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.1);
+        }
+
+        .qail-input-section h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+        }
+
+        .qail-input {
+            width: 100%;
+            background: var(--bg-code);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            color: var(--accent-cyan);
+            outline: none;
+        }
+
+        .qail-input:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .dialect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .dialect-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dialect-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .dialect-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+        }
+
+        .dialect-header img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .dialect-header .type-badge {
+            margin-left: auto;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--accent-cyan);
+        }
+
+        .dialect-header .type-badge.nosql {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+        }
+
+        .dialect-output {
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+            word-break: break-all;
+            min-height: 60px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .section-divider {
+            text-align: center;
+            margin: 48px 0 32px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .section-divider span {
+            background: var(--bg-dark);
+            padding: 0 16px;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+
+        .try-examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .try-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .try-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <main class="demo-page">
+        <div class="container">
+            <header style="text-align: center; margin-bottom: 48px;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 8px;">One Syntax. <span class="highlight">19
+                        Databases.</span></h1>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">Write QAIL once, compile to any database
+                    format instantly.</p>
+            </header>
+
+            <div class="qail-input-section">
+                <h2>🪝 QAIL Input</h2>
+                <input type="text" class="qail-input" id="qailInput"
+                    value="get users fields id, name, email where active = true and age > 18 limit 10"
+                    placeholder="Enter QAIL query...">
+                <div class="try-examples">
+                    <span style="color: var(--text-secondary); font-size: 0.85rem; margin-right: 8px;">Try:</span>
+                    <button class="try-btn" onclick='setQuery("get users fields *")'>Simple SELECT</button>
+                    <button class="try-btn"
+                        onclick='setQuery("get users fields id, name where active = true limit 10")'>Filtered</button>
+                    <button class="try-btn"
+                        onclick='setQuery("get orders fields customer_id, sum(total) where status = complete")'>Aggregate</button>
+                    <button class="try-btn"
+                        onclick='setQuery("add users values name = John, email = john@test.com")'>INSERT</button>
+                    <button class="try-btn"
+                        onclick='setQuery("set users values status = active where id = 123")'>UPDATE</button>
+                </div>
+            </div>
+
+            <div class="section-divider" style="position: relative;">
+                <span>SQL Dialects (11)</span>
+            </div>
+
+            <div class="dialect-grid" id="sqlDialects">
+                <!-- Generated by JS -->
+            </div>
+
+            <div class="section-divider" style="position: relative;">
+                <span>NoSQL (7)</span>
+            </div>
+
+            <div class="dialect-grid" id="nosqlDialects">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="components.js"></script>
+    <script type="module">
+        import init, {
+            parse_and_transpile,
+            parse_and_transpile_with_dialect,
+            validate,
+            version,
+            to_mongo,
+            to_dynamo,
+            to_cassandra,
+            to_redis,
+            to_elastic,
+            to_neo4j,
+            to_qdrant
+        } from './qail_wasm.js';
+
+        const SQL_DIALECTS = [
+            { name: 'PostgreSQL', key: 'postgres', icon: 'https://cdn.simpleicons.org/postgresql/4169E1' },
+            { name: 'MySQL', key: 'mysql', icon: 'https://cdn.simpleicons.org/mysql/4479A1' },
+            { name: 'SQLite', key: 'sqlite', icon: 'https://cdn.simpleicons.org/sqlite/003B57' },
+            { name: 'SQL Server', key: 'sqlserver', icon: '🗄️' },
+        ];
+
+        const NOSQL_DIALECTS = [
+            { name: 'MongoDB', key: 'mongo', fn: to_mongo, icon: 'https://cdn.simpleicons.org/mongodb/47A248' },
+            { name: 'DynamoDB', key: 'dynamo', fn: to_dynamo, icon: '🟡' },
+            { name: 'Redis', key: 'redis', fn: to_redis, icon: 'https://cdn.simpleicons.org/redis/FF4438' },
+            { name: 'Cassandra', key: 'cassandra', fn: to_cassandra, icon: 'https://cdn.simpleicons.org/apachecassandra/1287B1' },
+            { name: 'Elasticsearch', key: 'elastic', fn: to_elastic, icon: 'https://cdn.simpleicons.org/elasticsearch/005571' },
+            { name: 'Neo4j', key: 'neo4j', fn: to_neo4j, icon: 'https://cdn.simpleicons.org/neo4j/4581C3' },
+            { name: 'Qdrant', key: 'qdrant', fn: to_qdrant, icon: '🔮' },
+        ];
+
+        let wasmReady = false;
+
+        function renderIcon(icon) {
+            if (icon.startsWith('http')) {
+                return `<img src="${icon}" alt="">`;
+            }
+            return `<span style="font-size: 1.2rem;">${icon}</span>`;
+        }
+
+        function createDialectCard(dialect, isNoSql = false) {
+            return `
+                <div class="dialect-card">
+                    <div class="dialect-header">
+                        ${renderIcon(dialect.icon)}
+                        <span>${dialect.name}</span>
+                        <span class="type-badge ${isNoSql ? 'nosql' : ''}">${isNoSql ? 'NoSQL' : 'SQL'}</span>
+                    </div>
+                    <div class="dialect-output" id="output-${dialect.key}">Loading...</div>
+                </div>
+            `;
+        }
+
+        function transpile(query, dialect) {
+            if (!wasmReady) return 'Loading WASM...';
+            try {
+                return parse_and_transpile_with_dialect(query, dialect);
+            } catch (e) {
+                return `Error: ${e.message || e}`;
+            }
+        }
+
+        function transpileNoSql(query, fn) {
+            if (!wasmReady) return 'Loading WASM...';
+            try {
+                return fn(query);
+            } catch (e) {
+                return `Error: ${e.message || e}`;
+            }
+        }
+
+        function updateOutputs() {
+            const query = document.getElementById('qailInput').value;
+
+            // SQL dialects - live transpilation
+            SQL_DIALECTS.forEach(d => {
+                const el = document.getElementById(`output-${d.key}`);
+                if (el) el.textContent = transpile(query, d.key);
+            });
+
+            // NoSQL dialects - live transpilation!
+            NOSQL_DIALECTS.forEach(d => {
+                const el = document.getElementById(`output-${d.key}`);
+                if (el) el.textContent = transpileNoSql(query, d.fn);
+            });
+        }
+
+        window.setQuery = function (q) {
+            document.getElementById('qailInput').value = q;
+            updateOutputs();
+        }
+
+        async function initApp() {
+            // Render cards
+            document.getElementById('sqlDialects').innerHTML = SQL_DIALECTS.map(d => createDialectCard(d, false)).join('');
+            document.getElementById('nosqlDialects').innerHTML = NOSQL_DIALECTS.map(d => createDialectCard(d, true)).join('');
+
+            // Initialize WASM
+            try {
+                await init();
+                wasmReady = true;
+                console.log('QAIL WASM loaded, version:', version());
+                updateOutputs();
+            } catch (e) {
+                console.error('Failed to load WASM:', e);
+                document.querySelectorAll('.dialect-output').forEach(el => {
+                    el.textContent = 'Failed to load WASM';
+                });
+            }
+
+            // Live update on input
+            document.getElementById('qailInput').addEventListener('input', updateOutputs);
+        }
+
+        initApp();
+    </script>
+</body>
+
+</html>

@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation | QAIL</title>
-    <meta name="description" content="Complete documentation for QAIL v2.0: The Universal Query Transpiler.">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪝</text></svg>">
+    <meta name="description" content="Complete documentation for QAIL: The AST-Native Query Compiler.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Social Meta Tags -->
+    <meta property="og:title" content="QAIL Documentation">
+    <meta property="og:description"
+        content="Official documentation for QAIL. Installation, Syntax Reference, and Integration Guides for Rust, Node, and Go.">
+    <meta property="og:image" content="https://qail-web.pages.dev/social_preview.svg">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -44,108 +50,96 @@
                     <table class="symbols-table">
                         <thead>
                             <tr>
-                                <th>Symbol</th>
-                                <th>Name</th>
-                                <th>Function</th>
+                                <th>Keyword</th>
+                                <th>Description</th>
+                                <th>Example</th>
                                 <th>SQL Equivalent</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="symbol">::</td>
-                                <td>The Gate</td>
-                                <td>Action (get/set/del/add)</td>
-                                <td>SELECT/UPDATE...</td>
+                                <td class="symbol">get</td>
+                                <td>Select query</td>
+                                <td>get users</td>
+                                <td>SELECT FROM users</td>
                             </tr>
                             <tr>
-                                <td class="symbol">:</td>
-                                <td>The Link</td>
-                                <td>Connect table to columns</td>
-                                <td>FROM table</td>
+                                <td class="symbol">set</td>
+                                <td>Update query</td>
+                                <td>set users values ...</td>
+                                <td>UPDATE users SET ...</td>
                             </tr>
                             <tr>
-                                <td class="symbol">'</td>
-                                <td>The Label</td>
-                                <td>Mark a column</td>
-                                <td>col1, col2</td>
+                                <td class="symbol">del</td>
+                                <td>Delete query</td>
+                                <td>del users where ...</td>
+                                <td>DELETE FROM users</td>
                             </tr>
                             <tr>
-                                <td class="symbol">'_</td>
-                                <td>The Wildcard</td>
-                                <td>All columns</td>
-                                <td>*</td>
+                                <td class="symbol">add</td>
+                                <td>Insert query</td>
+                                <td>add users values ...</td>
+                                <td>INSERT INTO users</td>
                             </tr>
                             <tr>
-                                <td class="symbol">[ ]</td>
-                                <td>The Cage</td>
-                                <td>Constraints block</td>
-                                <td>WHERE/LIMIT...</td>
+                                <td class="symbol">fields</td>
+                                <td>Select columns</td>
+                                <td>fields id, name, *</td>
+                                <td>SELECT id, name, *</td>
                             </tr>
                             <tr>
-                                <td class="symbol">==</td>
-                                <td>The Equal</td>
-                                <td>Equality check</td>
-                                <td>= value</td>
+                                <td class="symbol">where</td>
+                                <td>Filter conditions</td>
+                                <td>where active = true</td>
+                                <td>WHERE active = true</td>
                             </tr>
                             <tr>
-                                <td class="symbol">~</td>
-                                <td>The Fuse</td>
-                                <td>Fuzzy Match</td>
-                                <td>ILIKE</td>
+                                <td class="symbol">and / or</td>
+                                <td>Logical operators</td>
+                                <td>where a = 1 and b = 2</td>
+                                <td>WHERE a = 1 AND b = 2</td>
                             </tr>
                             <tr>
-                                <td class="symbol">|</td>
-                                <td>The Split</td>
-                                <td>Logical OR</td>
-                                <td>OR</td>
+                                <td class="symbol">order by</td>
+                                <td>Sort results</td>
+                                <td>order by name desc</td>
+                                <td>ORDER BY name DESC</td>
                             </tr>
                             <tr>
-                                <td class="symbol">&</td>
-                                <td>The Bind</td>
-                                <td>Logical AND</td>
-                                <td>AND</td>
-                            </tr>
-                            <tr>
-                                <td class="symbol">+col</td>
-                                <td>Sort Asc</td>
-                                <td>Ascending sort</td>
-                                <td>ORDER BY col ASC</td>
-                            </tr>
-                            <tr>
-                                <td class="symbol">-col</td>
-                                <td>Sort Desc</td>
-                                <td>Descending sort</td>
-                                <td>ORDER BY col DESC</td>
-                            </tr>
-                            <tr>
-                                <td class="symbol">N..M</td>
-                                <td>The Range</td>
+                                <td class="symbol">limit / offset</td>
                                 <td>Pagination</td>
-                                <td>LIMIT M-N OFFSET N</td>
+                                <td>limit 10 offset 20</td>
+                                <td>LIMIT 10 OFFSET 20</td>
                             </tr>
                             <tr>
-                                <td class="symbol">$</td>
-                                <td>The Var</td>
-                                <td>Parameter</td>
-                                <td>$1</td>
+                                <td class="symbol">distinct</td>
+                                <td>Unique results</td>
+                                <td>get distinct users</td>
+                                <td>SELECT DISTINCT</td>
                             </tr>
                             <tr>
-                                <td class="symbol">!</td>
-                                <td>The Unique</td>
-                                <td>Distinct</td>
-                                <td>DISTINCT</td>
+                                <td class="symbol">left join</td>
+                                <td>Left outer join</td>
+                                <td>left join profiles</td>
+                                <td>LEFT JOIN profiles</td>
                             </tr>
                             <tr>
-                                <td class="symbol">&lt;-</td>
-                                <td>The Left</td>
-                                <td>Left Join</td>
-                                <td>LEFT JOIN</td>
+                                <td class="symbol">inner join</td>
+                                <td>Inner join</td>
+                                <td>inner join orders</td>
+                                <td>INNER JOIN orders</td>
                             </tr>
                             <tr>
-                                <td class="symbol">->&gt;</td>
-                                <td>The Right</td>
-                                <td>Inner Join</td>
-                                <td>INNER JOIN</td>
+                                <td class="symbol">ilike</td>
+                                <td>Fuzzy match</td>
+                                <td>where name ilike john</td>
+                                <td>WHERE name ILIKE '%john%'</td>
+                            </tr>
+                            <tr>
+                                <td class="symbol">$1, $2</td>
+                                <td>Parameters</td>
+                                <td>where id = $1</td>
+                                <td>WHERE id = $1</td>
                             </tr>
                         </tbody>
                     </table>
@@ -163,18 +157,27 @@
 
                 <h3>Rust Library</h3>
                 <div class="code-block"><code>[dependencies]
-qail-core = "0.5.0"</code></div>
+qail-core = "*"</code></div>
 
                 <h3>JavaScript/TypeScript (WASM)</h3>
                 <div class="code-block"><code>npm install qail-wasm</code></div>
 
-                <h3>Usage</h3>
-                <div class="code-block"><code>// Rust - compile-time validation
-let sql = qail!("get::users:'_[active=true]");
+                <h3>Introspection (Zero-Config)</h3>
+                <div class="code-block"><code># Generate qail.schema.json from your database
+qail pull postgres://user:pass@localhost:5432/db</code></div>
 
-// JavaScript - runtime validation
+                <h3>Usage</h3>
+                <div class="code-block"><code>// Rust - AST-native (recommended)
+let cmd = QailCmd::get("users")
+    .columns(["id", "email"])
+    .filter("active", Eq, true);
+
+// Rust - Text syntax (for CLI, LSP)
+let cmd = parse("get users fields * where active = true")?;
+
+// JavaScript - WASM
 import { parseAndTranspile } from 'qail-wasm';
-const sql = parseAndTranspile("get::users:'_[active=true]");</code></div>
+const sql = parseAndTranspile("get users fields * where active = true");</code></div>
             </section>
 
             <hr class="divider">
@@ -183,61 +186,66 @@ const sql = parseAndTranspile("get::users:'_[active=true]");</code></div>
             <section id="syntax">
                 <h2>Syntax Deep Dive</h2>
 
-                <div class="example-card">
-                    <h3>Simple SELECT</h3>
-                    <div class="code-block qail"><code>get::users:'id'email [ 'active == true ]</code></div>
-                    <div class="code-block sql"><code>SELECT id, email FROM users WHERE active = true</code></div>
-                </div>
-
-                <div class="example-card">
-                    <h3>All Columns (Wildcard)</h3>
-                    <div class="code-block qail"><code>get::users:'_</code></div>
-                    <div class="code-block sql"><code>SELECT * FROM users</code></div>
-                </div>
-
-                <div class="example-card">
-                    <h3>Pagination with Range</h3>
-                    <div class="code-block qail"><code>get::users:'_ [ 20..30 ]</code></div>
-                    <div class="code-block sql"><code>SELECT * FROM users LIMIT 10 OFFSET 20</code></div>
-                </div>
-
-                <div class="example-card">
-                    <h3>Sorting</h3>
-                    <div class="code-block qail"><code>get::users:'_ [ -created_at ]</code></div>
-                    <div class="code-block sql"><code>SELECT * FROM users ORDER BY created_at DESC</code></div>
-                    <div class="code-block qail"><code>get::users:'_ [ +name ]</code></div>
-                    <div class="code-block sql"><code>SELECT * FROM users ORDER BY name ASC</code></div>
-                </div>
-
-                <div class="example-card">
-                    <h3>OR Conditions</h3>
-                    <div class="code-block qail"><code>get::users:'_ [ 'role == "admin" | 'role == "mod" ]</code></div>
-                    <div class="code-block sql"><code>SELECT * FROM users WHERE role = 'admin' OR role = 'mod'</code>
+                <div class="example-cards">
+                    <div class="example-card">
+                        <h3>Simple SELECT</h3>
+                        <div class="code-block qail"><code>get users fields id, email where active = true</code></div>
+                        <div class="code-block sql"><code>SELECT id, email FROM users WHERE active = true</code></div>
                     </div>
-                </div>
 
-                <div class="example-card highlight-card">
-                    <h3>DISTINCT</h3>
-                    <div class="code-block qail"><code>get!::users:'role</code></div>
-                    <div class="code-block sql"><code>SELECT DISTINCT role FROM users</code></div>
-                </div>
+                    <div class="example-card">
+                        <h3>All Columns (Wildcard)</h3>
+                        <div class="code-block qail"><code>get users fields *</code></div>
+                        <div class="code-block sql"><code>SELECT * FROM users</code></div>
+                    </div>
 
-                <div class="example-card">
-                    <h3>UPDATE</h3>
-                    <div class="code-block qail"><code>set::users:[ verified = true ][ 'id == $1 ]</code></div>
-                    <div class="code-block sql"><code>UPDATE users SET verified = true WHERE id = $1</code></div>
-                </div>
+                    <div class="example-card">
+                        <h3>Pagination</h3>
+                        <div class="code-block qail"><code>get users fields * limit 10 offset 20</code></div>
+                        <div class="code-block sql"><code>SELECT * FROM users LIMIT 10 OFFSET 20</code></div>
+                    </div>
 
-                <div class="example-card">
-                    <h3>DELETE</h3>
-                    <div class="code-block qail"><code>del::users:[ 'id == $1 ]</code></div>
-                    <div class="code-block sql"><code>DELETE FROM users WHERE id = $1</code></div>
-                </div>
+                    <div class="example-card">
+                        <h3>Sorting</h3>
+                        <div class="code-block qail"><code>get users fields * order by created_at desc</code></div>
+                        <div class="code-block sql"><code>SELECT * FROM users ORDER BY created_at DESC</code></div>
+                        <div class="code-block qail"><code>get users fields * order by name asc</code></div>
+                        <div class="code-block sql"><code>SELECT * FROM users ORDER BY name ASC</code></div>
+                    </div>
 
-                <div class="example-card">
-                    <h3>JOINs</h3>
-                    <div class="code-block qail"><code>get::users<-profiles:'name'avatar</code></div>
-                    <div class="code-block sql"><code>SELECT name, avatar FROM users LEFT JOIN profiles ON ...</code>
+                    <div class="example-card">
+                        <h3>OR Conditions</h3>
+                        <div class="code-block qail"><code>get users fields * where role = admin or role = mod</code>
+                        </div>
+                        <div class="code-block sql">
+                            <code>SELECT * FROM users WHERE role = 'admin' OR role = 'mod'</code>
+                        </div>
+                    </div>
+
+                    <div class="example-card highlight-card">
+                        <h3>DISTINCT</h3>
+                        <div class="code-block qail"><code>get distinct users fields role</code></div>
+                        <div class="code-block sql"><code>SELECT DISTINCT role FROM users</code></div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>UPDATE</h3>
+                        <div class="code-block qail"><code>set users values verified = true where id = $1</code></div>
+                        <div class="code-block sql"><code>UPDATE users SET verified = true WHERE id = $1</code></div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>DELETE</h3>
+                        <div class="code-block qail"><code>del users where id = $1</code></div>
+                        <div class="code-block sql"><code>DELETE FROM users WHERE id = $1</code></div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>JOINs</h3>
+                        <div class="code-block qail"><code>get users left join profiles fields name, avatar</code></div>
+                        <div class="code-block sql">
+                            <code>SELECT name, avatar FROM users LEFT JOIN profiles ON ...</code>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -248,31 +256,36 @@ const sql = parseAndTranspile("get::users:'_[active=true]");</code></div>
             <section id="examples">
                 <h2>Real-World Examples</h2>
 
-                <div class="example-card">
-                    <h3>Search with Fuzzy Match</h3>
-                    <div class="code-block qail"><code>get::users:'id'name [ 'name ~ "john" ]</code></div>
-                    <div class="code-block sql"><code>SELECT id, name FROM users WHERE name ILIKE '%john%'</code></div>
-                </div>
-
-                <div class="example-card">
-                    <h3>Complex Filter</h3>
-                    <div class="code-block qail">
-                        <code>get::bookings:'_ [ 'status == "confirmed" & 'created_at >= "2024-01-01", -created_at, 0..50 ]</code>
+                <div class="example-cards">
+                    <div class="example-card">
+                        <h3>Search with Fuzzy Match</h3>
+                        <div class="code-block qail"><code>get users fields id, name where name ilike john</code></div>
+                        <div class="code-block sql"><code>SELECT id, name FROM users WHERE name ILIKE '%john%'</code>
+                        </div>
                     </div>
-                    <div class="code-block sql">
-                        <code>SELECT * FROM bookings WHERE status = 'confirmed' AND created_at >= '2024-01-01' ORDER BY created_at DESC LIMIT 50</code>
-                    </div>
-                </div>
 
-                <div class="example-card highlight-card">
-                    <h3>Multi-Line (Vertical Escape Hatch)</h3>
-                    <div class="code-block qail">
-                        <pre><code>get::users->bookings:'_
-    [ 'created_at >= "2024-01-01" ]
-    [ 'email_verified == true ]
-    [ 'bookings.campaign_code ~ $1 ]
-    [ -created_at ]
-    [ 0..50 ]</code></pre>
+                    <div class="example-card">
+                        <h3>Complex Filter</h3>
+                        <div class="code-block qail">
+                            <code>get bookings fields * where status = confirmed and created_at >= 2024-01-01 order by created_at desc limit 50</code>
+                        </div>
+                        <div class="code-block sql">
+                            <code>SELECT * FROM bookings WHERE status = 'confirmed' AND created_at >= '2024-01-01' ORDER BY created_at DESC LIMIT 50</code>
+                        </div>
+                    </div>
+
+                    <div class="example-card highlight-card">
+                        <h3>Multi-Line Query</h3>
+                        <div class="code-block qail">
+                            <pre><code>get users 
+    inner join bookings
+    fields *
+    where created_at >= 2024-01-01
+    and email_verified = true
+    and bookings.campaign_code ilike $1
+    order by created_at desc
+    limit 50</code></pre>
+                        </div>
                     </div>
                 </div>
             </section>

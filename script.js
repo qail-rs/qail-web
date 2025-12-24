@@ -57,7 +57,11 @@ function animateQailCode() {
     const codeEl = document.querySelector('.qail-code');
     if (!codeEl) return;
 
-    const fullText = codeEl.textContent;
+    // Remove cursor if exists
+    codeEl.classList.remove('typed');
+
+    // Reset content
+    const fullText = "get users fields * where active = true";
     codeEl.textContent = '';
 
     let i = 0;

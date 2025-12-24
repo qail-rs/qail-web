@@ -6,8 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Manifesto | QAIL</title>
     <meta name="description" content="SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety.">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪝</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Social Meta Tags -->
+    <meta property="og:title" content="The Manifesto | QAIL">
+    <meta property="og:description"
+        content="The story of why we built QAIL. Solving the 'Database Dilemma' and escaping Polyglot Hell.">
+    <meta property="og:image" content="https://qail-web.pages.dev/social_preview.svg">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -23,51 +29,108 @@
     <header class="page-header">
         <div class="container">
             <h1>The Manifesto</h1>
-            <p class="subtitle">SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety.</p>
+            <p class="subtitle">A story about the "Database Dilemma" and why we built QAIL.</p>
         </div>
     </header>
 
     <main class="page-content">
         <div class="container prose">
             <section>
-                <h2>What is QAIL?</h2>
-                <p>QAIL is not an ORM. It is not a Query Builder.</p>
-                <p><strong>QAIL is a Query Transpiler.</strong></p>
-                <p>It is a lightweight language that sits between your application code and your database. You write
-                    high-density, logic-focused queries in QAIL, and it compiles them instantly into Safe, Optimized,
-                    Raw SQL with zero runtime overhead.</p>
-            </section>
-
-            <section>
-                <h2>The Universal Approach</h2>
-                <p>QAIL is designed to work <strong>everywhere</strong>.</p>
+                <h2>The Struggle: "Polyglot Hell"</h2>
+                <p>We are polyglot developers. On Monday, we write <strong>Rust</strong>. On Tuesday,
+                    <strong>Go</strong>. On Wednesday, we maintain a legacy <strong>PHP</strong> system.
+                </p>
+                <p>Every time we switch languages, we have to switch our paradigms:</p>
                 <ul>
-                    <li><strong>In Rust:</strong> The <code>qail!()</code> macro compiles it to SQL at build time.</li>
-                    <li><strong>In Node/Browser:</strong> The <code>qail-wasm</code> package compiles it to SQL at
-                        runtime.</li>
-                    <li><strong>Zero Dependencies:</strong> Pure parser + transpiler. You bring your own database
-                        driver.</li>
+                    <li>In <strong>Rust</strong>, we choose between Diesel's strict compile-time types or SQLx's raw
+                        flexibility.</li>
+                    <li>In <strong>Go</strong>, we balance GORM's convenience with the performance of raw
+                        <code>database/sql</code>.
+                    </li>
+                    <li>In <strong>Node.js</strong>, we rely on Prisma for safety but pay the cost of heavy binary
+                        sidecars.</li>
+                    <li>In <strong>Python</strong>, we leverage Django's speed of development but hit performance walls
+                        at scale.</li>
+                    <li>In <strong>PHP</strong>, we love Eloquent's expressiveness but sometimes need lighter, faster
+                        query options.</li>
                 </ul>
+                <p><strong>The problem isn't the data. The problem is the interface.</strong> Why do we need to learn 5
+                    different ways to say <code>SELECT * FROM users</code>?</p>
             </section>
 
             <section>
-                <h2>One Language. Everywhere.</h2>
+                <h2>The Origin: "I Don't Want You to Suffer"</h2>
+                <blockquote class="manifesto-quote"
+                    style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05);">
+                    "I originally built QAIL for internal use to solve my own polyglot headaches. But I realized that
+                    keeping it private meant letting other engineers suffer through the same 'Database Dilemma'. I
+                    decided to open-source it so we can all stop writing Assembly."
+                </blockquote>
+            </section>
+
+            <section>
+                <h2>The Realization: "SQL is Assembly"</h2>
+                <p>We realized something profound: <strong>SQL is not source code. SQL is Assembly.</strong></p>
+                <p>SQL is verbose, powerful, and dangerous. It is the low-level instruction set of the database engine.
+                </p>
+                <ul>
+                    <li><strong>Raw SQL</strong> offers ultimate control, but maintaining raw strings across a large
+                        codebase requires immense discipline.</li>
+                    <li><strong>ORMs</strong> provide fantastic productivity, but the abstraction sometimes comes at the
+                        cost of fine-grained performance control.</li>
+                </ul>
+                <p>We didn't need a compromise. We needed a <strong>Compiler</strong>.</p>
+            </section>
+
+            <section>
+                <h2>The Savior: QAIL</h2>
+                <p>QAIL is the "Universal AST for Databases". It is not a text syntax that compiles to SQL—it is a
+                    native data structure that encodes directly to database wire protocols.</p>
+                <p>It separates the <strong>Code</strong> (your query AST) from the <strong>Data</strong> (your
+                    parameters). It creates a unified structure that works the same way in Rust, Go, Node, and PHP.</p>
+
                 <div class="comparison-grid">
                     <div class="code-block qail">
-                        <small>QAIL Query</small>
+                        <small>Write This (Once)</small>
                         <code>get::users:'id'email [ 'active == true, 0..10 ]</code>
                     </div>
                     <div class="code-block sql">
-                        <small>Generated SQL</small>
+                        <small>Get This (Everywhere)</small>
                         <code>SELECT id, email FROM users WHERE active = true LIMIT 10</code>
                     </div>
                 </div>
+
+                <p>Now, your team learns <strong>one syntax</strong>. The Rust dev, the Go dev, and the Frontend dev all
+                    speak the same data language.</p>
+
+                <blockquote class="manifesto-quote">
+                    "Safety shouldn't require a prison of boilerplate. We moved validation from the 'String' layer to
+                    the 'AST' layer. Code is data. Data is typed. Injection is structurally impossible."
+                </blockquote>
+
+                <p>By preventing SQL injection at the <strong>AST level</strong>, QAIL ensures your queries are safe
+                    before they even reach the database. Unlike ORMs that generate strings at runtime, QAIL encodes
+                    directly to wire protocol bytes—<strong>no string layer at all</strong>.</p>
             </section>
 
             <section>
-                <h2>Simple, Symbolic Syntax</h2>
-                <p>QAIL uses simple symbols to keep queries short and readable.</p>
+                <h2>The Architecture: Native Power</h2>
+                <p>QAIL is written in <strong>Pure Rust</strong>. It exposes:</p>
+                <ul>
+                    <li><strong>A C-API</strong> for Go, Python, and Java (via FFI).</li>
+                    <li><strong>A WASM Module</strong> for Node.js and Browsers.</li>
+                    <li><strong>A Native Crate</strong> for Rust users.</li>
+                </ul>
+                <p>It runs in-process. It has zero network overhead. It turns your query generation into a simple CPU
+                    function call.</p>
+            </section>
 
+            <hr style="margin: 3rem 0; opacity: 0.1;">
+
+            <section>
+                <h2>The Syntax</h2>
+                <p>We designed the syntax for <strong>Density and Clarity.</strong> Every character does work. No
+                    boilerplate.</p>
                 <table style="width: 100%; margin: 1rem 0;">
                     <thead>
                         <tr>
@@ -97,28 +160,10 @@
                             <td><code>'email'name</code></td>
                         </tr>
                         <tr>
-                            <td><code>'_</code></td>
-                            <td>The Wildcard</td>
-                            <td>All columns</td>
-                            <td><code>users:'_</code></td>
-                        </tr>
-                        <tr>
                             <td><code>[ ]</code></td>
                             <td>The Cage</td>
                             <td>Constraints block</td>
                             <td><code>[ 'active == true ]</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>==</code></td>
-                            <td>The Equal</td>
-                            <td>Equality check</td>
-                            <td><code>'status == "active"</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>+</code>/<code>-</code></td>
-                            <td>Sort Order</td>
-                            <td>ASC/DESC</td>
-                            <td><code>-created_at</code></td>
                         </tr>
                         <tr>
                             <td><code>N..M</code></td>
@@ -126,37 +171,14 @@
                             <td>Pagination</td>
                             <td><code>0..10</code></td>
                         </tr>
+                        <tr>
+                            <td><code>-></code></td>
+                            <td>The Join</td>
+                            <td>Relation Arrow</td>
+                            <td><code>users -> posts</code></td>
+                        </tr>
                     </tbody>
                 </table>
-            </section>
-
-            <section>
-                <h2>End-to-End Validation</h2>
-                <p>Use QAIL in both your frontend and backend for <strong>consistent query validation</strong>.</p>
-                <p>Your frontend knows exactly what queries are valid — before sending them to the server.</p>
-
-                <div class="code-block qail">
-                    <small>The Architecture</small>
-                    <pre><code>[ ANY FRONTEND ]                 [ ANY BACKEND ]
-(qail-wasm)                      (qail-core)
-     |                                |
-     +--- Construct Query ----------->|
-     |    (Validate locally)          |
-     |                        Re-Validate & Compile
-     |                                |
-     |<-- Return Data (JSON) ---------+</code></pre>
-                </div>
-                <p style="color: var(--text-muted); margin-top: 1rem;">Works with React, Vue, Angular, Node.js, Go,
-                    Python, Rust — any stack.</p>
-            </section>
-
-            <section>
-                <h2>The Promise</h2>
-                <div class="alert alert-info">
-                    <strong>SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety.</strong>
-                </div>
-                <p>QAIL gives you the brevity of a CLI tool, the safety of Rust, and the control of writing raw SQL
-                    strings.</p>
             </section>
         </div>
     </main>

@@ -4,11 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QAIL — The Universal Query Transpiler</title>
+    <title>QAIL — The AST-Native Query Compiler</title>
     <meta name="description"
         content="SQL is Assembly. Stop writing Assembly. Write Qail. Compile to Safety. The portable SQL compiler that runs everywhere.">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪝</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Social Meta Tags -->
+    <meta property="og:title" content="QAIL — The AST-Native Query Compiler">
+    <meta property="og:description"
+        content="Build Once. Execute Anywhere. AST-first polyglot database access for Postgres, MySQL, MongoDB, and more.">
+    <meta property="og:image" content="https://qail-web.pages.dev/social_preview.svg">
+    <meta property="og:url" content="https://qail-web.pages.dev">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QAIL — The AST-Native Query Compiler">
+    <meta name="twitter:description" content="Build Once. Execute Anywhere. AST-first polyglot database access.">
+    <meta name="twitter:image" content="https://qail-web.pages.dev/social_preview.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,19 +41,46 @@
                 <span class="hero-icon">🪝</span>
                 <span>QAIL</span>
             </h1>
-            <p class="hero-subtitle">The Universal Query Transpiler</p>
-            <p class="hero-tagline">SQL is Assembly. <span class="highlight">Compile to Safety.</span></p>
+            <p class="hero-subtitle">The AST-Native Query Compiler</p>
+            <p class="hero-tagline">Build Once. <span class="highlight">Execute Anywhere.</span></p>
 
             <div class="hero-demo">
-                <div class="demo-compare">
-                    <div class="demo-old">
-                        <span class="demo-label">SQL (Assembly)</span>
-                        <code>SELECT id, email FROM users WHERE active = true LIMIT 10;</code>
+                <div class="demo-compare" style="flex-direction: row;">
+                    <!-- Source: QAIL AST -->
+                    <div class="demo-target" style="order: 1;">
+                        <div class="demo-new">
+                            <span class="demo-label">QAIL AST</span>
+                            <code class="qail-code" style="font-size: 0.75rem;">QailCmd::get("users")
+  .select_all()
+  .filter("active", Eq, true)</code>
+                        </div>
                     </div>
-                    <div class="demo-arrow">→</div>
-                    <div class="demo-new">
-                        <span class="demo-label">QAIL</span>
-                        <code class="qail-code">get::users:'id'email [ 'active == true, 0..10 ]</code>
+
+                    <div class="demo-connectors" style="order: 2; transform: scaleX(-1);">
+                        <svg viewBox="0 0 100 300" preserveAspectRatio="none">
+                            <!-- Top to center -->
+                            <path d="M0 50 C 50 50, 50 150, 100 150" class="connector-line" />
+                            <!-- Middle to center -->
+                            <path d="M0 150 L 100 150" class="connector-line" />
+                            <!-- Bottom to center -->
+                            <path d="M0 250 C 50 250, 50 150, 100 150" class="connector-line" />
+                        </svg>
+                    </div>
+
+                    <!-- Target: Multiple Databases -->
+                    <div class="demo-sources" style="order: 3;">
+                        <div class="demo-source-card">
+                            <span class="demo-label">PostgreSQL</span>
+                            <code style="font-size: 0.7rem;">SELECT * FROM users WHERE active = true</code>
+                        </div>
+                        <div class="demo-source-card">
+                            <span class="demo-label">MongoDB</span>
+                            <code style="font-size: 0.7rem;">db.users.find({ active: true })</code>
+                        </div>
+                        <div class="demo-source-card">
+                            <span class="demo-label">Oracle</span>
+                            <code style="font-size: 0.7rem;">SELECT * FROM users WHERE active = 1</code>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,7 +94,8 @@
                 </a>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+            <div
+                style="display: flex; flex-direction: column; gap: 0.75rem; align-items: center; width: 100%; max-width: 400px; margin: 0 auto;">
                 <div class="hero-install">
                     <code>cargo install qail</code>
                     <button class="copy-btn" onclick="copyText('cargo install qail', this)">Copy</button>
@@ -64,6 +104,32 @@
                     <code>npm i qail-wasm</code>
                     <button class="copy-btn" onclick="copyText('npm i qail-wasm', this)">Copy</button>
                 </div>
+
+                <!-- Language Slider -->
+                <div class="lang-slider-container">
+                    <div class="lang-slider">
+                        <!-- Duplicate content for infinite scroll effect -->
+                        <div class="lang-track">
+                            <span>🦀 Rust</span>
+                            <span>🐍 Python</span>
+                            <span>🐹 Go</span>
+                            <span>🐘 PHP</span>
+                            <span>☕ Java</span>
+                            <span>🟢 Node</span>
+                            <span>⚡ C/C++</span>
+                            <!-- Duplicated -->
+                            <span>🦀 Rust</span>
+                            <span>🐍 Python</span>
+                            <span>🐹 Go</span>
+                            <span>🐘 PHP</span>
+                            <span>☕ Java</span>
+                            <span>🟢 Node</span>
+                            <span>⚡ C/C++</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem; opacity: 0.6; margin-top: -0.5rem;">Native Rust • Universal C-API • WASM
+                </p>
             </div>
         </div>
     </header>
@@ -73,39 +139,132 @@
         <div class="container">
             <h2 class="section-title">Why QAIL?</h2>
             <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
-                Write once. Run everywhere. No database dependencies.
+                AST-first. Native drivers. Zero transpilation overhead.
             </p>
             <div class="features-grid">
                 <div class="feature-card highlight-card">
+                    <div class="feature-icon">🧬</div>
+                    <h3>AST-First Architecture</h3>
+                    <p>Build queries as native data structures. No string parsing. No text-to-AST-to-text overhead.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>Native Database Drivers</h3>
+                    <p>Direct wire protocol. No SQLx middleman. Full control over connection and execution.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Structurally Safe</h3>
+                    <p>Injection impossible by design. Code and data separated at the AST level, not string level.</p>
+                </div>
+                <div class="feature-card">
                     <div class="feature-icon">🌐</div>
-                    <h3>Universal</h3>
-                    <p>One language for Rust, Node.js, and the Browser. Works everywhere via WASM.</p>
+                    <h3>Polyglot by Design</h3>
+                    <p>Same QailCmd AST compiles to Postgres, MySQL, MongoDB, and more. Truly database-agnostic.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
-                    <h3>Compile-Time Safe</h3>
-                    <p>Syntax validated at build time. No live database needed for CI/CD.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔗</div>
-                    <h3>Rust-Native Syntax</h3>
-                    <p><code>'</code> for columns, <code>:</code> for links, <code>==</code> for equality. Feels like
-                        Rust.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🦀</div>
-                    <h3>Zero DB Dependencies</h3>
-                    <p>Pure parser + transpiler. You bring your own driver (sqlx, diesel, tokio-postgres).</p>
+                    <h3>Zero Overhead</h3>
+                    <p>No runtime parsing. AST is built at compile time, serialized directly to wire protocol.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
-                    <h3>End-to-End Validation</h3>
-                    <p>Same query validation in your React frontend and Rust backend.</p>
+                    <h3>Type Safe End-to-End</h3>
+                    <p>Schema validation at build time. Wrong queries don't compile. Wrong types don't bind.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🧬</div>
-                    <h3>AST-First</h3>
-                    <p>Parse → AST → Transpile. Manipulate the AST for permissions, policies, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Databases -->
+    <section id="databases" style="padding: 4rem 0; background: var(--surface-2);">
+        <div class="container">
+            <h2 class="section-title">Supported Databases</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
+                One syntax. 19 targets. SQL and NoSQL.
+            </p>
+
+            <h3 style="text-align: center; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;">SQL
+                Dialects</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+                <div class="db-badge"><img src="icons/postgresql.svg" alt="PostgreSQL" width="24">PostgreSQL</div>
+                <div class="db-badge"><img src="icons/mysql.svg" alt="MySQL" width="24">MySQL
+                </div>
+                <div class="db-badge"><img src="icons/sqlite.svg" alt="SQLite" width="24">SQLite</div>
+                <div class="db-badge"><img src="icons/sqlserver.svg" alt="SQL Server" width="24"> SQL Server</div>
+                <div class="db-badge"><img src="icons/oracle.svg" alt="Oracle" width="24"> Oracle</div>
+                <div class="db-badge"><img src="icons/bigquery.svg" alt="BigQuery" width="24">BigQuery</div>
+                <div class="db-badge"><img src="icons/snowflake.svg" alt="Snowflake" width="24">Snowflake</div>
+                <div class="db-badge"><img src="icons/redshift.svg" alt="Redshift" width="24"> Redshift</div>
+                <div class="db-badge"><img src="icons/duckdb.svg" alt="DuckDB" width="24">DuckDB</div>
+                <div class="db-badge"><img src="icons/mariadb.svg" alt="MariaDB" width="24">MariaDB</div>
+                <div class="db-badge"><img src="icons/influxdb.svg" alt="InfluxDB" width="24">InfluxDB</div>
+            </div>
+
+            <h3 style="text-align: center; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;">NoSQL</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+                <div class="db-badge nosql"><img src="icons/mongodb.svg" alt="MongoDB" width="24">MongoDB</div>
+                <div class="db-badge nosql"><img src="icons/dynamodb.svg" alt="DynamoDB" width="24"> DynamoDB</div>
+                <div class="db-badge nosql"><img src="icons/redis.svg" alt="Redis" width="24">Redis</div>
+                <div class="db-badge nosql"><img src="icons/cassandra.svg" alt="Cassandra" width="24">Cassandra</div>
+                <div class="db-badge nosql"><img src="icons/elasticsearch.svg" alt="Elasticsearch"
+                        width="24">Elasticsearch</div>
+                <div class="db-badge nosql"><img src="icons/neo4j.svg" alt="Neo4j" width="24">Neo4j</div>
+                <div class="db-badge nosql"><img src="icons/qdrant.svg" alt="Qdrant" width="24"> Qdrant</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Language Bindings -->
+    <section id="bindings" style="padding: 4rem 0;">
+        <div class="container">
+            <h2 class="section-title">Language Bindings</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
+                Native packages for your language. All powered by one Rust core.
+            </p>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
+                <div class="binding-card ready">
+                    <div style="font-size: 2rem;">🦀</div>
+                    <h4>Rust</h4>
+                    <code>cargo add qail-core</code>
+                    <span class="badge ready">✓ Stable</span>
+                </div>
+                <div class="binding-card ready">
+                    <div style="font-size: 2rem;">🌐</div>
+                    <h4>WASM / Node</h4>
+                    <code>npm i qail-wasm</code>
+                    <span class="badge ready">✓ Stable</span>
+                </div>
+                <div class="binding-card ready">
+                    <div style="font-size: 2rem;">🐍</div>
+                    <h4>Python</h4>
+                    <code>pip install qail</code>
+                    <span class="badge ready">✓ Ready</span>
+                </div>
+                <div class="binding-card ready">
+                    <div style="font-size: 2rem;">🐹</div>
+                    <h4>Go</h4>
+                    <code>go get qail-lang/qail-go</code>
+                    <span class="badge ready">✓ Ready</span>
+                </div>
+                <div class="binding-card ready">
+                    <div style="font-size: 2rem;">🐘</div>
+                    <h4>PHP</h4>
+                    <code>composer require qail/qail</code>
+                    <span class="badge ready">✓ Ready</span>
+                </div>
+                <div class="binding-card ready">
+                    <div style="font-size: 2rem;">☕</div>
+                    <h4>Java</h4>
+                    <code>com.qail:qail</code>
+                    <span class="badge ready">✓ Ready</span>
+                </div>
+                <div class="binding-card">
+                    <div style="font-size: 2rem;">⚡</div>
+                    <h4>C / C++</h4>
+                    <code>libqail_ffi.a</code>
+                    <span class="badge">via FFI</span>
                 </div>
             </div>
         </div>
@@ -120,8 +279,9 @@
                 <div style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🦀</div>
                     <h4 style="margin: 0;">Rust</h4>
-                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">qail-core + qail!
-                        macro</p>
+                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">qail-core + builder
+                        API
+                    </p>
                 </div>
                 <div style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
