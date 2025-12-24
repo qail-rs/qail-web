@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feature Status | QAIL</title>
-    <meta name="description" content="Current support status for QAIL dialects and features.">
+    <meta name="description" content="Current support status for QAIL layers: AST, Protocol Encoders, and Drivers.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Social Meta Tags -->
     <meta property="og:title" content="QAIL Feature Status">
     <meta property="og:description"
-        content="Detailed feature matrix for QAIL. Check support for Postgres, MySQL, Mongo, capabilities.">
+        content="Detailed feature matrix for QAIL's layered architecture: AST, Encoders, Drivers.">
     <meta property="og:image" content="https://qail-web.pages.dev/social_preview.svg">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,143 +29,236 @@
     <header class="page-header">
         <div class="container">
             <h1>Feature Status</h1>
-            <p class="subtitle">Real-time support matrix for all dialects</p>
+            <p class="subtitle">AST-Native Architecture Progress</p>
         </div>
     </header>
 
     <main class="page-content">
         <div class="container">
 
+            <!-- Architecture Overview -->
+            <section style="margin-bottom: 3rem;">
+                <div
+                    style="background: var(--surface-2); border-radius: 12px; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6;">
+                    <pre style="margin: 0; white-space: pre-wrap;">
+┌─────────────────────────────────────────────────────────────┐
+│  QAIL Layered Architecture                                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Layer 1: Intent (qail-core)                                │
+│  └── QailCmd AST, Parser, Validator, Builder API            │
+│                                                             │
+│  Layer 2: Brain (protocol encoders)                         │
+│  └── AST → Wire Protocol Bytes (pure, sync, no I/O)         │
+│                                                             │
+│  Layer 3: Muscle (drivers)                                  │
+│  └── Async I/O, Connection Pooling (tokio)                  │
+│                                                             │
+│  Layer 4: Reality (databases)                               │
+│  └── PostgreSQL, MySQL, SQLite, etc.                        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</pre>
+                </div>
+            </section>
+
             <section class="status-legend"
                 style="display: flex; gap: 24px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap;">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="status-dot full"></span> <span>Full Support</span>
+                    <span class="status-dot full"></span> <span>Complete</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="status-dot partial"></span> <span>Partial</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="status-dot experimental"></span> <span>Experimental</span>
+                    <span class="status-dot partial"></span> <span>In Progress</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <span class="status-dot planned"></span> <span>Planned</span>
                 </div>
             </section>
 
-            <!-- SQL Matrix -->
+            <!-- Layer 1: AST -->
             <section>
-                <h2 class="section-title">SQL Dialects</h2>
+                <h2 class="section-title">Layer 1: Intent (qail-core)</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    The universal AST that represents all database operations
+                </p>
                 <div class="matrix-wrapper">
                     <table class="status-matrix">
                         <thead>
                             <tr>
-                                <th>Feature</th>
-                                <th><img src="icons/postgresql.svg" width="20"> Postgres</th>
-                                <th><img src="icons/mysql.svg" width="20"> MySQL</th>
-                                <th><img src="icons/sqlite.svg" width="20"> SQLite</th>
-                                <th><img src="icons/oracle.svg" width="20"> Oracle</th>
+                                <th>Component</th>
+                                <th>Status</th>
+                                <th>Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="feature-name">Basic DML <span class="feature-sub">(Get, Set, Add, Del)</span>
-                                </td>
-                                <td class="status-cell"><span class="status-badge partial">80%</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="feature-name">QailCmd AST</td>
+                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td>Core data structure for all query types</td>
                             </tr>
                             <tr>
-                                <td class="feature-name">Joins <span class="feature-sub">(Inner, Left, Right)</span>
-                                </td>
-                                <td class="status-cell"><span class="status-badge partial">80%</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="feature-name">Builder API</td>
+                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td><code>.get() .filter() .order_by() .limit()</code></td>
                             </tr>
                             <tr>
-                                <td class="feature-name">Transactions</td>
-                                <td class="status-cell"><span class="status-badge partial">80%</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="feature-name">Parser</td>
+                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td>Text syntax → AST (for CLI, LSP, WASM)</td>
                             </tr>
                             <tr>
-                                <td class="feature-name">JSON Operators</td>
-                                <td class="status-cell"><span class="status-badge partial">80%</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="feature-name">Validator</td>
+                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td>Schema validation with fuzzy suggestions</td>
                             </tr>
                             <tr>
-                                <td class="feature-name">Fuzzy Match <span class="feature-sub">(ilike)</span></td>
-                                <td class="status-cell"><span class="status-badge partial">80%</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Migrations</td>
-                                <td class="status-cell"><span class="status-badge partial">80%</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="feature-name">Formatter</td>
+                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td>AST → canonical text (qail fmt)</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- NoSQL Matrix -->
-            <section style="margin-top: 80px;">
-                <h2 class="section-title">NoSQL & Others</h2>
+            <!-- Layer 2: Protocol Encoders -->
+            <section style="margin-top: 60px;">
+                <h2 class="section-title">Layer 2: Brain (Protocol Encoders)</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Pure, synchronous conversion: AST → Wire Protocol Bytes
+                </p>
                 <div class="matrix-wrapper">
                     <table class="status-matrix">
                         <thead>
                             <tr>
-                                <th>Feature</th>
-                                <th><img src="icons/mongodb.svg" width="20"> Mongo</th>
-                                <th><img src="icons/dynamodb.svg" width="20"> DynamoDB</th>
-                                <th><img src="icons/redis.svg" width="20"> Redis</th>
-                                <th><img src="icons/neo4j.svg" width="20"> Neo4j</th>
+                                <th>Database</th>
+                                <th>Simple Query</th>
+                                <th>Extended Query</th>
+                                <th>Parameter Binding</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="feature-name">Basic CRUD</td>
+                                <td class="feature-name"><img src="icons/postgresql.svg" width="20"> PostgreSQL</td>
+                                <td class="status-cell"><span class="status-badge partial">50%</span></td>
                                 <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-name"><img src="icons/mysql.svg" width="20"> MySQL</td>
                                 <td class="status-cell"><span class="status-badge planned">Planned</span></td>
                                 <td class="status-cell"><span class="status-badge planned">Planned</span></td>
                                 <td class="status-cell"><span class="status-badge planned">Planned</span></td>
                             </tr>
                             <tr>
-                                <td class="feature-name">Complex Filters</td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Aggregations</td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                            </tr>
-                            <tr>
-                                <td class="feature-name">Joins / Lookups</td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
-                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="feature-name"><img src="icons/sqlite.svg" width="20"> SQLite</td>
+                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
+                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
+                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </section>
+
+            <!-- Layer 3: Drivers -->
+            <section style="margin-top: 60px;">
+                <h2 class="section-title">Layer 3: Muscle (Async Drivers)</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Network I/O, connection pooling, response decoding
+                </p>
+                <div class="matrix-wrapper">
+                    <table class="status-matrix">
+                        <thead>
+                            <tr>
+                                <th>Driver</th>
+                                <th>Connection</th>
+                                <th>Execute</th>
+                                <th>Pooling</th>
+                                <th>TLS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="feature-name"><img src="icons/postgresql.svg" width="20"> qail-pg</td>
+                                <td class="status-cell"><span class="status-badge partial">30%</span></td>
+                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
+                            </tr>
+                            <tr>
+                                <td class="feature-name"><img src="icons/mysql.svg" width="20"> qail-mysql</td>
+                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="status-cell"><span class="status-badge planned">Planned</span></td>
+                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Legacy Transpiler -->
+            <section style="margin-top: 60px;">
+                <h2 class="section-title">Legacy: SQL Transpiler</h2>
+                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    AST → SQL String (for compatibility, WASM playground)
+                </p>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; max-width: 800px; margin: 0 auto;">
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/postgresql.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">PostgreSQL</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/mysql.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">MySQL</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/sqlite.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">SQLite</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/oracle.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">Oracle</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/sqlserver.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">SQL Server</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/bigquery.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">BigQuery</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/mongodb.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">MongoDB</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/redis.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">Redis</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                    <div class="feature-card" style="padding: 16px; text-align: center;">
+                        <img src="icons/neo4j.svg" width="24" style="margin-bottom: 8px;">
+                        <div style="font-size: 0.85rem;">Neo4j</div>
+                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                    </div>
+                </div>
+                <p style="text-align: center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.85rem;">
+                    + Snowflake, Redshift, DuckDB, MariaDB, Cassandra, DynamoDB, Elasticsearch, Qdrant
+                </p>
             </section>
 
             <!-- Language Bindings -->
-            <section style="margin-top: 80px;">
+            <section style="margin-top: 60px;">
                 <h2 class="section-title">Language Bindings</h2>
                 <div
                     style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px;">
@@ -182,12 +275,12 @@
                     <div class="feature-card" style="padding: 24px; text-align: center;">
                         <span style="font-size: 2rem;">🐍</span>
                         <h4 style="margin: 12px 0;">Python</h4>
-                        <span class="status-badge partial">Ready</span>
+                        <span class="status-badge partial">via FFI</span>
                     </div>
                     <div class="feature-card" style="padding: 24px; text-align: center;">
                         <span style="font-size: 2rem;">🐹</span>
                         <h4 style="margin: 12px 0;">Go</h4>
-                        <span class="status-badge partial">Ready</span>
+                        <span class="status-badge partial">via FFI</span>
                     </div>
                 </div>
             </section>
