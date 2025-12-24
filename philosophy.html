@@ -55,8 +55,9 @@
                     <li>In <strong>PHP</strong>, we love Eloquent's expressiveness but sometimes need lighter, faster
                         query options.</li>
                 </ul>
-                <p><strong>The problem isn't the data. The problem is the interface.</strong> Why do we need to learn 5
-                    different ways to say <code>SELECT * FROM users</code>?</p>
+                <p><strong>The problem isn't the data. The problem is the string layer.</strong> Every ORM generates SQL
+                    strings.
+                    Every driver parses them again. Why not skip strings entirely?</p>
             </section>
 
             <section>
