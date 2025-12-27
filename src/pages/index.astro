@@ -167,12 +167,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     >
                 </div>
                 <div class="hero-install" style="border-color: #f7a41d;">
-                    <code style="color: #f7a41d;"
-                        >zig fetch --save github.com/qail-io/qail-zig</code
+                    <code style="color: #f7a41d; font-size: 0.75rem;"
+                        >zig fetch --save ...qail-zig/v0.2.0.tar.gz</code
                     >
                     <button
                         class="copy-btn"
-                        onclick="copyText('zig fetch --save https://github.com/qail-io/qail/releases/download/v0.10.2/qail-zig-0.10.2.tar.gz', this)"
+                        onclick="copyText('zig fetch --save https://github.com/qail-io/qail-zig/archive/refs/tags/v0.2.0.tar.gz', this)"
                         >Copy</button
                     >
                 </div>
@@ -484,10 +484,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                         height="32"
                     />
                     <h4>Zig</h4>
-                    <code style="font-size: 0.7rem;">35K q/s • 2.1x pg.zig</code
+                    <code style="font-size: 0.7rem;">Pure Zig • TLS • Pool</code
                     >
-                    <span class="badge ready" style="background: #f7a41d;"
-                        >NEW</span
+                    <span class="badge ready" style="background: #22c55e;"
+                        >v0.2.0</span
                     >
                 </a>
                 <div class="binding-card ready">
