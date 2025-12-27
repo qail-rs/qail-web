@@ -1,0 +1,444 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="QAIL-Zig | PostgreSQL Driver for Zig"
+    description="The fastest PostgreSQL driver for Zig. 2.1x faster than pg.zig, 95% of native Rust performance."
+>
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .big-number {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f7a41d, #22c55e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin: 1rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(247, 164, 29, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f7a41d;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(247, 164, 29, 0.2);
+        }
+
+        .feature-card h3 {
+            color: #f7a41d;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border: 1px solid #30363d;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-family: "JetBrains Mono", monospace;
+            border: 1px solid rgba(247, 164, 29, 0.4);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .benchmark-table th,
+        .benchmark-table td {
+            padding: 1rem;
+            text-align: right;
+            border: 1px solid rgba(247, 164, 29, 0.3);
+        }
+
+        .benchmark-table th {
+            background: var(--surface-2);
+            color: var(--text-muted);
+        }
+
+        .benchmark-table td:first-child {
+            text-align: left;
+        }
+
+        .winner {
+            color: #f7a41d;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f7a41d, #22c55e);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .architecture-diagram {
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .big-number {
+                font-size: 4rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benchmark-table {
+                font-size: 0.8rem;
+            }
+
+            .benchmark-table th,
+            .benchmark-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .architecture-diagram {
+                padding: 1rem;
+                font-size: 0.7rem;
+            }
+
+            .code-block {
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+
+    <header class="hero-section" style="padding-top: 6rem;">
+        <div class="container">
+            <h1>🦎 QAIL-Zig</h1>
+            <p class="subtitle">The Fastest PostgreSQL Driver for Zig</p>
+
+            <div class="big-number">2.1x</div>
+            <p style="color: var(--text-muted); font-size: 1.25rem;">
+                faster than pg.zig
+            </p>
+
+            <p
+                style="max-width: 600px; margin: 2rem auto 0; color: var(--text-muted); line-height: 1.7;"
+            >
+                <strong style="color: var(--text);">Why Zig?</strong> Zig's zero-overhead
+                philosophy pairs perfectly with QAIL's wire protocol approach. Native
+                <code>std.net</code> I/O with Rust-powered encoding gives you the
+                best of both worlds: Zig's control and simplicity, Rust's battle-tested
+                encoding.
+            </p>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <div class="container">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">35,305</div>
+                    <div class="stat-label">Queries/sec (single)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">315,708</div>
+                    <div class="stat-label">Queries/sec (pipeline)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">95%</div>
+                    <div class="stat-label">of Native Rust Speed</div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <section style="margin: 3rem 0;">
+                <h2
+                    style="text-align: center; color: var(--primary); margin-bottom: 2rem;"
+                >
+                    Features
+                </h2>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>⚡ Pipeline Batching</h3>
+                        <p>
+                            Send 10,000 queries in one TCP write. No network
+                            roundtrip per query.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Prepared Statements</h3>
+                        <p>
+                            Parse once, execute millions of times. Full Extended
+                            Query Protocol support.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🦀 Rust-Optimized Encoding</h3>
+                        <p>
+                            Wire protocol encoding via FFI to battle-tested Rust
+                            core.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🦎 Native Zig I/O</h3>
+                        <p>
+                            Uses <code>std.net</code> for TCP. Zero tokio, zero async
+                            runtime overhead.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benchmark -->
+            <section style="margin: 3rem 0;">
+                <h2
+                    style="text-align: center; color: var(--primary); margin-bottom: 2rem;"
+                >
+                    Benchmark vs pg.zig
+                </h2>
+
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Driver</th>
+                            <th>Mode</th>
+                            <th>Queries/sec</th>
+                            <th>Ratio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>QAIL-Zig</strong></td>
+                            <td>Single query</td>
+                            <td class="winner">35,305 🏆</td>
+                            <td>2.1x</td>
+                        </tr>
+                        <tr>
+                            <td><strong>pg.zig</strong></td>
+                            <td>Single query</td>
+                            <td>16,832</td>
+                            <td>1.0x</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QAIL-Zig</strong></td>
+                            <td>Pipeline (1000/batch)</td>
+                            <td class="winner">315,708 🚀</td>
+                            <td>18.8x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Architecture -->
+            <section style="margin: 3rem 0;">
+                <h2
+                    style="text-align: center; color: var(--primary); margin-bottom: 2rem;"
+                >
+                    Architecture
+                </h2>
+
+                <div class="architecture-diagram">
+                    <pre
+                        style="margin: 0; color: var(--text);">┌─────────────────────────────────────────────────────────────────┐
+│  Your Zig Code                                                   │
+│  ├── qail.encodeSelect("users", "id,name", 10)                  │
+│  └── qail.encodePreparedBatch("stmt", params, 1000)             │
+├─────────────────────────────────────────────────────────────────┤
+│  qail-encoder (Rust FFI)              ~60MB static lib          │
+│  ├── AST → Wire Protocol Encoding     (zero-copy)               │
+│  └── Parse/Bind/Execute Support       (prepared statements)     │
+├─────────────────────────────────────────────────────────────────┤
+│  Zig Native I/O                                                  │
+│  ├── std.net.tcpConnectToAddress()                              │
+│  └── stream.write() / stream.read()                             │
+├─────────────────────────────────────────────────────────────────┤
+│  PostgreSQL                             Wire Protocol            │
+└─────────────────────────────────────────────────────────────────┘</pre>
+                </div>
+            </section>
+
+            <!-- Installation Tutorial -->
+            <section style="margin: 3rem 0;">
+                <h2
+                    style="text-align: center; color: var(--primary); margin-bottom: 2rem;"
+                >
+                    Installation
+                </h2>
+
+                <!-- Step 1 -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--text); margin-bottom: 1rem;">
+                        📦 Step 1: Add to build.zig.zon
+                    </h3>
+                    <div class="code-block">
+                        <pre
+                            style="margin: 0; color: #e6edf3;">
+<span style="color: #8b949e;">// In your project's build.zig.zon, add to .dependencies:</span>
+.dependencies = &#123;
+    .qail = &#123;
+        .url = <span style="color: #a5d6ff;">"https://github.com/qail-io/qail/releases/download/v0.10.2/qail-zig-0.10.2-macos-arm64.tar.gz"</span>,
+        .hash = <span style="color: #a5d6ff;">"..."</span>, <span style="color: #8b949e;">// Run zig fetch to get this</span>
+    &#125;,
+&#125;,</pre>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--text); margin-bottom: 1rem;">
+                        🔧 Step 2: Fetch the Package
+                    </h3>
+                    <div class="code-block">
+                        <pre
+                            style="margin: 0; color: #e6edf3;">
+<span style="color: #8b949e;"># This downloads the package and outputs the hash</span>
+zig fetch --save https://github.com/qail-io/qail/releases/download/v0.10.2/qail-zig-0.10.2-macos-arm64.tar.gz
+
+<span style="color: #8b949e;"># The hash will be added to your build.zig.zon automatically!</span></pre>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--text); margin-bottom: 1rem;">
+                        ⚙️ Step 3: Update build.zig
+                    </h3>
+                    <div class="code-block">
+                        <pre
+                            style="margin: 0; color: #e6edf3;">
+<span style="color: #ff7b72;">const</span> std = <span style="color: #79c0ff;">@import</span>(<span style="color: #a5d6ff;">"std"</span>);
+
+<span style="color: #ff7b72;">pub fn</span> build(b: *std.Build) <span style="color: #ff7b72;">void</span> &#123;
+    <span style="color: #ff7b72;">const</span> exe = b.addExecutable(.&#123;
+        .name = <span style="color: #a5d6ff;">"my-app"</span>,
+        .root_source_file = b.path(<span style="color: #a5d6ff;">"src/main.zig"</span>),
+        .target = b.standardTargetOptions(.&#123;&#125;),
+        .optimize = b.standardOptimizeOption(.&#123;&#125;),
+    &#125;);
+
+    <span style="color: #8b949e;">// Add QAIL dependency</span>
+    <span style="color: #ff7b72;">const</span> qail = b.dependency(<span style="color: #a5d6ff;">"qail"</span>, .&#123;&#125;);
+    exe.root_module.addImport(<span style="color: #a5d6ff;">"qail"</span>, qail.module(<span style="color: #a5d6ff;">"qail"</span>));
+
+    <span style="color: #8b949e;">// Link the Rust static library</span>
+    exe.addLibraryPath(qail.path(<span style="color: #a5d6ff;">"lib"</span>));
+    exe.linkSystemLibrary(<span style="color: #a5d6ff;">"qail_encoder"</span>);
+
+    b.installArtifact(exe);
+&#125;</pre>
+                    </div>
+                </div>
+
+                <!-- Step 4: Usage -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--text); margin-bottom: 1rem;">
+                        🚀 Step 4: Use QAIL in Your Code
+                    </h3>
+                    <div class="code-block">
+                        <pre
+                            style="margin: 0; color: #e6edf3;">
+<span style="color: #ff7b72;">const</span> std = <span style="color: #79c0ff;">@import</span>(<span style="color: #a5d6ff;">"std"</span>);
+<span style="color: #ff7b72;">const</span> qail = <span style="color: #79c0ff;">@import</span>(<span style="color: #a5d6ff;">"qail"</span>);
+
+<span style="color: #ff7b72;">pub fn</span> main() !<span style="color: #ff7b72;">void</span> &#123;
+    <span style="color: #8b949e;">// Connect to PostgreSQL</span>
+    <span style="color: #ff7b72;">const</span> addr = std.net.Address.parseIp4(<span style="color: #a5d6ff;">"127.0.0.1"</span>, <span style="color: #79c0ff;">5432</span>);
+    <span style="color: #ff7b72;">var</span> stream = <span style="color: #ff7b72;">try</span> std.net.tcpConnectToAddress(addr);
+    <span style="color: #ff7b72;">defer</span> stream.close();
+
+    <span style="color: #8b949e;">// Encode a query with QAIL</span>
+    <span style="color: #ff7b72;">var</span> query = qail.encodeSelect(<span style="color: #a5d6ff;">"users"</span>, <span style="color: #a5d6ff;">"id,name"</span>, <span style="color: #79c0ff;">10</span>);
+    <span style="color: #ff7b72;">defer</span> query.deinit();
+
+    <span style="color: #8b949e;">// Send to PostgreSQL</span>
+    _ = <span style="color: #ff7b72;">try</span> stream.write(query.data);
+
+    <span style="color: #8b949e;">// Read response...</span>
+&#125;</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <div style="text-align: center; margin: 3rem 0;">
+                <a
+                    href="https://github.com/qail-io/qail/tree/main/qail-zig"
+                    class="cta-button"
+                >
+                    View on GitHub
+                </a>
+                <a
+                    href="/benchmark/zig-50m"
+                    class="cta-button"
+                    style="background: var(--surface-2); color: var(--text);"
+                >
+                    50M Benchmark Details
+                </a>
+            </div>
+        </div>
+    </main>
+</BaseLayout>

@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="QAIL — The AST-Native Query Compiler">
@@ -12,7 +12,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <span>QAIL</span>
             </h1>
             <p class="hero-subtitle">The AST-Native Query Compiler</p>
-            <p class="hero-tagline">Build with AST. <span class="highlight">Execute with Bytes.</span></p>
+            <p class="hero-tagline">
+                Build with AST. <span class="highlight"
+                    >Execute with Bytes.</span
+                >
+            </p>
 
             <div class="hero-demo">
                 <div class="demo-compare">
@@ -20,24 +24,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <div class="demo-target" style="order: 1;">
                         <div class="demo-new">
                             <span class="demo-label">QAIL AST</span>
-                            <code class="qail-code" style="font-size: 0.75rem;">QailCmd::get("users")
-  .select_all()
-  .filter("active", Eq, true)</code>
+                            <code class="qail-code" style="font-size: 0.75rem;"
+                                >QailCmd::get("users") .select_all()
+                                .filter("active", Eq, true)</code
+                            >
                         </div>
                     </div>
 
                     <div class="demo-connectors" style="order: 2;">
-                        <svg viewBox="0 0 100 300" style="width: 100%; height: 100%;" preserveAspectRatio="none">
+                        <svg
+                            viewBox="0 0 100 300"
+                            style="width: 100%; height: 100%;"
+                            preserveAspectRatio="none"
+                        >
                             <!-- Source (0, 150) to Targets (100, y) -->
                             <!-- Card centers: 32, 111, 190, 269 (63px cards, 16px gaps, 300px container) -->
                             <!-- 1. Postgres (Top) -->
-                            <path d="M 0 150 C 50 150, 50 32, 100 32" class="connector-line" />
+                            <path
+                                d="M 0 150 C 50 150, 50 32, 100 32"
+                                class="connector-line"></path>
                             <!-- 2. SQLite -->
-                            <path d="M 0 150 C 40 150, 60 111, 100 111" class="connector-line" />
+                            <path
+                                d="M 0 150 C 40 150, 60 111, 100 111"
+                                class="connector-line"></path>
                             <!-- 3. MongoDB -->
-                            <path d="M 0 150 C 40 150, 60 190, 100 190" class="connector-line" />
+                            <path
+                                d="M 0 150 C 40 150, 60 190, 100 190"
+                                class="connector-line"></path>
                             <!-- 4. Qdrant (Bottom) -->
-                            <path d="M 0 150 C 50 150, 50 269, 100 269" class="connector-line" />
+                            <path
+                                d="M 0 150 C 50 150, 50 269, 100 269"
+                                class="connector-line"></path>
                         </svg>
                     </div>
 
@@ -45,68 +62,119 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <div class="demo-sources" style="order: 3;">
                         <div class="demo-source-card">
                             <span class="demo-label">PostgreSQL</span>
-                            <code style="font-size: 0.7rem;">SELECT * FROM users WHERE active = true</code>
+                            <code style="font-size: 0.7rem;"
+                                >SELECT * FROM users WHERE active = true</code
+                            >
                         </div>
                         <div class="demo-source-card">
                             <span class="demo-label">SQLite</span>
-                            <code style="font-size: 0.7rem;">SELECT * FROM "users" WHERE "active" = 1</code>
+                            <code style="font-size: 0.7rem;"
+                                >SELECT * FROM "users" WHERE "active" = 1</code
+                            >
                         </div>
                         <div class="demo-source-card">
                             <span class="demo-label">MongoDB</span>
-                            <code style="font-size: 0.7rem;">{"db.users.find({ \"active\": true })"}</code>
+                            <code style="font-size: 0.7rem;"
+                                >{'db.users.find({ "active": true })'}</code
+                            >
                         </div>
                         <div class="demo-source-card">
                             <span class="demo-label">Qdrant</span>
-                            <code style="font-size: 0.7rem;">{"filter: { must: [{ key: \"active\", match: { value: true } }] }"}</code>
+                            <code style="font-size: 0.7rem;"
+                                >{
+                                    'filter: { must: [{ key: "active", match: { value: true } }] }'
+                                }</code
+                            >
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Why AST-Native? -->
-            <div class="ast-comparison"
-                style="margin: 2rem auto; display: flex; flex-direction: column; gap: 1rem; max-width: 700px;">
+            <div
+                class="ast-comparison"
+                style="margin: 2rem auto; display: flex; flex-direction: column; gap: 1rem; max-width: 700px;"
+            >
                 <div
-                    style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3);"
+                >
                     <span style="font-size: 1.2rem;">❌</span>
                     <span style="opacity: 0.6; font-size: 0.8rem;">ORMs:</span>
-                    <code
-                        style="font-size: 0.7rem; opacity: 0.8;">Text → <s>Parse</s> → AST → <s>SQL String</s> → <s>Parse</s> → Execute</code>
+                    <code style="font-size: 0.7rem; opacity: 0.8;"
+                        >Code → Parse → AST → <s>SQL String</s> → <s
+                            >DB Parses Again</s
+                        > → Execute</code
+                    >
                 </div>
                 <div
-                    style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(234, 179, 8, 0.1); border-radius: 8px; border: 1px solid rgba(234, 179, 8, 0.3);">
+                    style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(234, 179, 8, 0.1); border-radius: 8px; border: 1px solid rgba(234, 179, 8, 0.3);"
+                >
                     <span style="font-size: 1.2rem;">⚠️</span>
-                    <span style="opacity: 0.8; font-size: 0.8rem; color: #eab308;">Raw SQL:</span>
-                    <code style="font-size: 0.7rem; color: #eab308; opacity: 0.9;">String → Parse → Execute</code>
-                    <span style="font-size: 0.7rem; opacity: 0.7; margin-left: auto;">Runtime checks.</span>
+                    <span
+                        style="opacity: 0.8; font-size: 0.8rem; color: #eab308;"
+                        >Raw SQL:</span
+                    >
+                    <code
+                        style="font-size: 0.7rem; color: #eab308; opacity: 0.9;"
+                        >"SELECT..." → DB Parses → Execute</code
+                    >
+                    <span
+                        style="font-size: 0.7rem; opacity: 0.7; margin-left: auto;"
+                        >Errors at runtime.</span
+                    >
                 </div>
                 <div
-                    style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 8px; border: 1px solid rgba(34, 197, 94, 0.3);">
+                    style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 8px; border: 1px solid rgba(34, 197, 94, 0.3);"
+                >
                     <span style="font-size: 1.2rem;">✅</span>
-                    <span style="opacity: 0.9; font-size: 0.8rem; color: #22c55e;">QAIL:</span>
-                    <code style="font-size: 0.75rem; color: #22c55e;">AST → Wire Protocol Bytes → Execute</code>
-                    <span style="font-size: 0.7rem; opacity: 0.7; margin-left: auto;">No strings. Direct.</span>
+                    <span
+                        style="opacity: 0.9; font-size: 0.8rem; color: #22c55e;"
+                        >QAIL:</span
+                    >
+                    <code style="font-size: 0.75rem; color: #22c55e;"
+                        >AST → Binary Protocol → Execute</code
+                    >
+                    <span
+                        style="font-size: 0.7rem; opacity: 0.7; margin-left: auto;"
+                        >Errors at compile-time.</span
+                    >
                 </div>
             </div>
 
             <div class="hero-cta">
-                <a href="/docs" class="btn btn-primary">
-                    Get Started
-                </a>
+                <a href="/docs" class="btn btn-primary"> Get Started </a>
                 <a href="/philosophy" class="btn btn-secondary">
                     The Manifesto
                 </a>
             </div>
 
             <div
-                style="display: flex; flex-direction: column; gap: 0.75rem; align-items: center; width: 100%; max-width: 400px; margin: 0 auto;">
+                style="display: flex; flex-direction: column; gap: 0.75rem; align-items: center; width: 100%; max-width: 400px; margin: 0 auto;"
+            >
                 <div class="hero-install">
                     <code>cargo install qail</code>
-                    <button class="copy-btn" onclick="copyText('cargo install qail', this)">Copy</button>
+                    <button
+                        class="copy-btn"
+                        onclick="copyText('cargo install qail', this)"
+                        >Copy</button
+                    >
                 </div>
                 <div class="hero-install">
                     <code>npm i qail-wasm</code>
-                    <button class="copy-btn" onclick="copyText('npm i qail-wasm', this)">Copy</button>
+                    <button
+                        class="copy-btn"
+                        onclick="copyText('npm i qail-wasm', this)">Copy</button
+                    >
+                </div>
+                <div class="hero-install" style="border-color: #f7a41d;">
+                    <code style="color: #f7a41d;"
+                        >zig fetch --save github.com/qail-io/qail-zig</code
+                    >
+                    <button
+                        class="copy-btn"
+                        onclick="copyText('zig fetch --save https://github.com/qail-io/qail/releases/download/v0.10.2/qail-zig-0.10.2.tar.gz', this)"
+                        >Copy</button
+                    >
                 </div>
 
                 <!-- Language Slider -->
@@ -114,25 +182,112 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <div class="lang-slider">
                         <!-- Duplicate content for infinite scroll effect -->
                         <div class="lang-track">
-                            <span>🦀 Rust</span>
-                            <span>🐍 Python</span>
-                            <span>🐹 Go</span>
-                            <span>🐘 PHP</span>
-                            <span>☕ Java</span>
-                            <span>🟢 Node</span>
-                            <span>⚡ C/C++</span>
+                            <span
+                                ><img
+                                    src="/icons/rust.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Rust</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/python.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Python</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/go.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Go</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/php.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> PHP</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/java.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Java</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/nodejs.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Node</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/c.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> C/C++</span
+                            >
                             <!-- Duplicated -->
-                            <span>🦀 Rust</span>
-                            <span>🐍 Python</span>
-                            <span>🐹 Go</span>
-                            <span>🐘 PHP</span>
-                            <span>☕ Java</span>
-                            <span>🟢 Node</span>
-                            <span>⚡ C/C++</span>
+                            <span
+                                ><img
+                                    src="/icons/rust.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Rust</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/python.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Python</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/go.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Go</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/php.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> PHP</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/java.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Java</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/nodejs.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> Node</span
+                            >
+                            <span
+                                ><img
+                                    src="/icons/c.svg"
+                                    alt=""
+                                    style="width: 20px; height: 20px; vertical-align: middle;"
+                                /> C/C++</span
+                            >
                         </div>
                     </div>
                 </div>
-                <p style="font-size: 0.8rem; opacity: 0.6; margin-top: -0.5rem;">Native Rust • Universal C-API • WASM
+                <p
+                    style="font-size: 0.8rem; opacity: 0.6; margin-top: -0.5rem;"
+                >
+                    Native Rust • Universal C-API • WASM
                 </p>
             </div>
         </div>
@@ -142,63 +297,101 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Why QAIL?</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
+            <p
+                style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);"
+            >
                 AST-first. Native drivers. Zero transpilation overhead.
             </p>
             <div class="features-grid">
                 <div class="feature-card highlight-card">
                     <div class="feature-icon">🧬</div>
                     <h3>AST-First Architecture</h3>
-                    <p>Build queries as native data structures. No string parsing. No text-to-AST-to-text overhead.</p>
+                    <p>
+                        Build queries as native data structures. No string
+                        parsing. No text-to-AST-to-text overhead.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🔌</div>
                     <h3>Native Database Drivers</h3>
-                    <p>Direct wire protocol. No SQLx middleman. Full control over connection and execution.</p>
+                    <p>
+                        Direct wire protocol. No SQLx middleman. Full control
+                        over connection and execution.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🛡️</div>
                     <h3>Structurally Safe</h3>
-                    <p>Injection impossible by design. Code and data separated at the AST level, not string level.</p>
+                    <p>
+                        Injection impossible by design. Code and data separated
+                        at the AST level, not string level.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🌐</div>
                     <h3>Polyglot by Design</h3>
-                    <p>Same QailCmd AST encodes to Postgres, MySQL, MongoDB, and more. Truly database-agnostic.</p>
+                    <p>
+                        Same QailCmd AST encodes to Postgres, MySQL, MongoDB,
+                        and more. Truly database-agnostic.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
                     <h3>Zero Overhead</h3>
-                    <p>No runtime parsing. AST is built at compile time, serialized directly to wire protocol.</p>
+                    <p>
+                        No runtime parsing. AST is built at compile time,
+                        serialized directly to wire protocol.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
                     <h3>Type Safe End-to-End</h3>
-                    <p>Schema validation at build time. Wrong queries don't compile. Wrong types don't bind.</p>
+                    <p>
+                        Schema validation at build time. Wrong queries don't
+                        compile. Wrong types don't bind.
+                    </p>
                 </div>
             </div>
 
             <!-- QAIL's Position -->
             <div
-                style="margin-top: 3rem; background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); border-radius: 16px; padding: 2rem; text-align: center;">
-                <h3 style="color: #fff; margin: 0 0 1.5rem; font-size: 1.5rem;">🦀 QAIL's Position</h3>
+                style="margin-top: 3rem; background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); border-radius: 16px; padding: 2rem; text-align: center;"
+            >
+                <h3 style="color: #fff; margin: 0 0 1.5rem; font-size: 1.5rem;">
+                    🦀 QAIL's Position
+                </h3>
                 <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; color: #e2e8f0;">
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; color: #e2e8f0;"
+                >
                     <div>
-                        <div style="font-size: 1.75rem; font-weight: 700;">4% faster than C</div>
-                        <div style="font-size: 0.875rem; opacity: 0.8;">353k vs 339k q/s</div>
+                        <div style="font-size: 1.75rem; font-weight: 700;">
+                            4% faster than C
+                        </div>
+                        <div style="font-size: 0.875rem; opacity: 0.8;">
+                            353k vs 339k q/s
+                        </div>
                     </div>
                     <div>
-                        <div style="font-size: 1.75rem; font-weight: 700;">12% ahead of Go</div>
-                        <div style="font-size: 0.875rem; opacity: 0.8;">pgx 303k q/s</div>
+                        <div style="font-size: 1.75rem; font-weight: 700;">
+                            12% ahead of Go
+                        </div>
+                        <div style="font-size: 0.875rem; opacity: 0.8;">
+                            pgx 303k q/s
+                        </div>
                     </div>
                     <div>
-                        <div style="font-size: 1.75rem; font-weight: 700;">16x faster</div>
-                        <div style="font-size: 0.875rem; opacity: 0.8;">Python asyncpg ~21k q/s</div>
+                        <div style="font-size: 1.75rem; font-weight: 700;">
+                            16x faster
+                        </div>
+                        <div style="font-size: 0.875rem; opacity: 0.8;">
+                            Python asyncpg ~21k q/s
+                        </div>
                     </div>
                 </div>
-                <a href="/benchmarks"
-                    style="display: inline-block; margin-top: 1.5rem; color: #60a5fa; font-size: 0.9rem; text-decoration: none;">
+                <a
+                    href="/benchmarks"
+                    style="display: inline-block; margin-top: 1.5rem; color: #60a5fa; font-size: 0.9rem; text-decoration: none;"
+                >
                     View full benchmarks →
                 </a>
             </div>
@@ -206,24 +399,63 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <!-- Supported Databases -->
-    <section id="databases" style="padding: 4rem 0; background: var(--surface-2);">
+    <section
+        id="databases"
+        style="padding: 4rem 0; background: var(--surface-2);"
+    >
         <div class="container">
             <h2 class="section-title">Supported Databases</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
+            <p
+                style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);"
+            >
                 One AST. Multimodal Targets. SQL and Document.
             </p>
 
-            <h3 style="text-align: center; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;">SQL-AST (Tier 1)</h3>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
-                <div class="db-badge"><img src="/icons/postgresql.svg" alt="PostgreSQL" width="24">PostgreSQL</div>
-                <div class="db-badge"><img src="/icons/sqlite.svg" alt="SQLite" width="24">SQLite</div>
+            <h3
+                style="text-align: center; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;"
+            >
+                SQL-AST (Tier 1)
+            </h3>
+            <div
+                style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem;"
+            >
+                <div class="db-badge">
+                    <img
+                        src="/icons/postgresql.svg"
+                        alt="PostgreSQL"
+                        width="24"
+                    />PostgreSQL
+                </div>
+                <div class="db-badge">
+                    <img
+                        src="/icons/sqlite.svg"
+                        alt="SQLite"
+                        width="24"
+                    />SQLite
+                </div>
             </div>
 
-            <h3 style="text-align: center; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;">Document-AST (Tier 2)</h3>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-                <div class="db-badge nosql"><img src="/icons/mongodb.svg" alt="MongoDB" width="24">MongoDB</div>
-                <div class="db-badge nosql"><img src="/icons/dynamodb.svg" alt="DynamoDB" width="24"> DynamoDB</div>
-                <div class="db-badge nosql"><img src="/icons/qdrant.svg" alt="Qdrant" width="24"> Qdrant</div>
+            <h3
+                style="text-align: center; font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem;"
+            >
+                Document-AST (Tier 2)
+            </h3>
+            <div
+                style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;"
+            >
+                <div class="db-badge nosql">
+                    <img
+                        src="/icons/mongodb.svg"
+                        alt="MongoDB"
+                        width="24"
+                    />MongoDB
+                </div>
+                <div class="db-badge nosql">
+                    <img src="/icons/dynamodb.svg" alt="DynamoDB" width="24" /> DynamoDB
+                </div>
+                <div class="db-badge nosql">
+                    <img src="/icons/qdrant.svg" alt="Qdrant" width="24" /> Qdrant
+                </div>
             </div>
         </div>
     </section>
@@ -231,99 +463,165 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- Language Bindings -->
     <section id="bindings" style="padding: 4rem 0;">
         <div class="container">
-            <h2 class="section-title">Language Bindings</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">
+            <h2 class="section-title">Language Drivers</h2>
+            <p
+                style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);"
+            >
                 Native packages for your language. All powered by one Rust core.
             </p>
             <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;"
+            >
+                <a
+                    href="/zig"
+                    class="binding-card ready"
+                    style="text-decoration: none; border-color: #f7a41d;"
+                >
+                    <img
+                        src="/icons/zig.svg"
+                        alt="Zig"
+                        width="32"
+                        height="32"
+                    />
+                    <h4>Zig</h4>
+                    <code style="font-size: 0.7rem;">35K q/s • 2.1x pg.zig</code
+                    >
+                    <span class="badge ready" style="background: #f7a41d;"
+                        >NEW</span
+                    >
+                </a>
                 <div class="binding-card ready">
-                    <img src="/icons/rust.svg" alt="Rust" width="32" height="32">
+                    <img
+                        src="/icons/rust.svg"
+                        alt="Rust"
+                        width="32"
+                        height="32"
+                    />
                     <h4>Rust</h4>
                     <code>cargo add qail-core</code>
-                    <span class="badge ready">✓ Stable</span>
+                    <span class="badge ready">Cargo</span>
                 </div>
                 <div class="binding-card ready">
-                    <div style="font-size: 2rem;">🌐</div>
+                    <img
+                        src="/icons/php.svg"
+                        alt="PHP"
+                        width="32"
+                        height="32"
+                    />
+                    <h4>PHP</h4>
+                    <code style="font-size: 0.7rem;"
+                        >31K q/s • 2.6x Eloquent</code
+                    >
+                    >
+                    <span class="badge">GitHub</span>
+                </div>
+                <div class="binding-card ready">
+                    <img src="/icons/go.svg" alt="Go" width="32" height="32" />
+                    <h4>Go</h4>
+                    <code style="font-size: 0.7rem;">126K q/s • 4.2x GORM</code>
+                    <span class="badge">GitHub</span>
+                </div>
+                <div class="binding-card ready">
+                    <img
+                        src="/icons/python.svg"
+                        alt="Python"
+                        width="32"
+                        height="32"
+                    />
+                    <h4>Python</h4>
+                    <code style="font-size: 0.7rem;">130K rows/s COPY</code>
+                    <span class="badge">GitHub</span>
+                </div>
+                <div class="binding-card ready">
+                    <img
+                        src="/icons/nodejs.svg"
+                        alt="Node.js"
+                        width="32"
+                        height="32"
+                    />
                     <h4>WASM / Node</h4>
                     <code>npm i qail-wasm</code>
-                    <span class="badge ready">✓ Stable</span>
-                </div>
-                <div class="binding-card ready">
-                    <img src="/icons/python.svg" alt="Python" width="32" height="32">
-                    <h4>Python</h4>
-                    <code>pip install qail</code>
-                    <span class="badge ready">✓ Ready</span>
-                </div>
-                <div class="binding-card ready">
-                    <div style="font-size: 2rem;">🐹</div>
-                    <h4>Go</h4>
-                    <code>go get qail-lang/qail-go</code>
-                    <span class="badge ready">✓ Ready</span>
-                </div>
-                <div class="binding-card ready">
-                    <div style="font-size: 2rem;">🐘</div>
-                    <h4>PHP</h4>
-                    <code>composer require qail/qail</code>
-                    <span class="badge ready">✓ Ready</span>
-                </div>
-                <div class="binding-card ready">
-                    <div style="font-size: 2rem;">☕</div>
-                    <h4>Java</h4>
-                    <code>com.qail:qail</code>
-                    <span class="badge ready">✓ Ready</span>
-                </div>
-                <div class="binding-card">
-                    <div style="font-size: 2rem;">⚡</div>
-                    <h4>C / C++</h4>
-                    <code>libqail_ffi.a</code>
-                    <span class="badge">via FFI</span>
+                    <span class="badge ready">NPM</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Platforms -->
-    <section class="cta" style="background: var(--surface-2);">
-        <div class="container">
-            <h2>One Language. Everywhere.</h2>
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
-                <div style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;">
-                    <img src="/icons/rust.svg" alt="Rust" width="32" height="32" style="margin-bottom: 0.5rem;">
-                    <h4 style="margin: 0;">Rust</h4>
-                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">qail-core + builder
-                        API
-                    </p>
-                </div>
-                <div style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
-                    <h4 style="margin: 0;">Browser</h4>
-                    <p style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;">qail-wasm (~50KB)</p>
-                </div>
-                <div
-                    style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--primary), #9F6BFF); border-radius: 12px; color: white;">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📦</div>
-                    <h4 style="margin: 0;">Node.js</h4>
-                    <p style="margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 0.9rem;">npm install qail-wasm</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-        <div class="container">
-            <h2>Skip the String Layer.</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">Build with AST. Execute with Bytes.</p>
-            <div class="cta-buttons">
-                <a href="/docs" class="btn btn-primary btn-large">
-                    Read the Docs
-                </a>
-                <a href="https://github.com/qail-rs/qail" class="btn btn-secondary btn-large">
-                    View on GitHub
-                </a>
-            </div>
+            <p style="text-align: center; margin-top: 2rem;">
+                <a
+                    href="/drivers"
+                    style="color: var(--accent); text-decoration: none;"
+                    >View all drivers →</a
+                >
+            </p>
         </div>
     </section>
 </BaseLayout>
+
+<!-- Platforms -->
+<section class="cta" style="background: var(--surface-2);">
+    <div class="container">
+        <h2>One Language. Everywhere.</h2>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;"
+        >
+            <div
+                style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;"
+            >
+                <img
+                    src="/icons/rust.svg"
+                    alt="Rust"
+                    width="32"
+                    height="32"
+                    style="margin-bottom: 0.5rem;"
+                />
+                <h4 style="margin: 0;">Rust</h4>
+                <p
+                    style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;"
+                >
+                    qail-core + builder API
+                </p>
+            </div>
+            <div
+                style="text-align: center; padding: 1.5rem; background: var(--surface-1); border-radius: 12px;"
+            >
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
+                <h4 style="margin: 0;">Browser</h4>
+                <p
+                    style="margin: 0.5rem 0 0 0; color: var(--text-muted); font-size: 0.9rem;"
+                >
+                    qail-wasm (~50KB)
+                </p>
+            </div>
+            <div
+                style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--primary), #9F6BFF); border-radius: 12px; color: white;"
+            >
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📦</div>
+                <h4 style="margin: 0;">Node.js</h4>
+                <p
+                    style="margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 0.9rem;"
+                >
+                    npm install qail-wasm
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <div class="container">
+        <h2>Skip the String Layer.</h2>
+        <p style="margin-bottom: 2rem; color: var(--text-muted);">
+            Build with AST. Execute with Bytes.
+        </p>
+        <div class="cta-buttons">
+            <a href="/docs" class="btn btn-primary btn-large">
+                Read the Docs
+            </a>
+            <a
+                href="https://github.com/qail-io/qail"
+                class="btn btn-secondary btn-large"
+            >
+                View on GitHub
+            </a>
+        </div>
+    </div>
+</section>

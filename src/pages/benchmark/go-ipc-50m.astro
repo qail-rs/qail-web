@@ -1,0 +1,429 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="Go IPC 50M Benchmark | QAIL"
+    description="QAIL Go IPC matches pgx performance! 237K vs 240K queries/sec with prepared statements."
+>
+    <style>
+        .big-number {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #06b6d4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin: 1.5rem 0;
+        }
+
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-family: "JetBrains Mono", monospace;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .benchmark-table th,
+        .benchmark-table td {
+            padding: 1rem;
+            text-align: right;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .benchmark-table th {
+            background: var(--surface-2);
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .benchmark-table td:first-child {
+            text-align: left;
+            color: var(--text);
+        }
+
+        .benchmark-table .winner {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .speedup-badge {
+            display: inline-block;
+            background: linear-gradient(
+                135deg,
+                var(--accent),
+                var(--secondary)
+            );
+            color: var(--bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .highlight-card h3 {
+            color: #fff;
+            margin: 0 0 1rem;
+        }
+
+        .highlight-card .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            color: #e2e8f0;
+        }
+
+        .stats-item {
+            font-size: 1.25rem;
+        }
+
+        .stats-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .architecture-diagram {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.9rem;
+        }
+
+        .architecture-diagram pre {
+            margin: 0;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .insight-box {
+            background: linear-gradient(
+                135deg,
+                rgba(34, 197, 94, 0.1),
+                rgba(6, 182, 212, 0.1)
+            );
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .big-number {
+                font-size: 4rem;
+            }
+        }
+    </style>
+
+    <main class="container">
+        <a href="/benchmarks" class="back-link">← Back to Benchmarks</a>
+
+        <header style="text-align: center; margin: 3rem 0;">
+            <span class="speedup-badge">50 Million Queries</span>
+            <h1 style="font-size: 2.5rem; margin: 1rem 0;">
+                QAIL Go IPC vs pgx
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">
+                Unix socket IPC matches pure Go performance
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                December 27, 2025
+            </p>
+        </header>
+
+        <!-- Hero Result -->
+        <div class="highlight-card">
+            <h3>🎯 Fair Head-to-Head Comparison</h3>
+            <div class="stats">
+                <div>
+                    <div class="stats-item"><strong>237,561</strong></div>
+                    <div class="stats-label">QAIL IPC q/s</div>
+                </div>
+                <div>
+                    <div class="stats-item"><strong>239,794</strong></div>
+                    <div class="stats-label">pgx q/s</div>
+                </div>
+                <div>
+                    <div class="stats-item"><strong>99%</strong></div>
+                    <div class="stats-label">Performance Match</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <strong>🚀 Key Insight:</strong> QAIL IPC daemon achieves 99% of pgx performance
+            despite IPC overhead (Go → JSON → Unix Socket → Rust → PostgreSQL). The
+            prepared statement caching in the Rust daemon compensates for the extra
+            hop.
+        </div>
+
+        <!-- Architecture Comparison -->
+        <h2>Architecture Comparison</h2>
+
+        <div class="comparison-grid">
+            <div class="architecture-diagram">
+                <h4 style="margin-top: 0;">pgx (Pure Go)</h4>
+                <pre>
+Go App
+  ↓ (direct)
+pgx driver
+  ↓ (TCP)
+PostgreSQL
+                </pre>
+                <p style="margin-bottom: 0; color: var(--text-muted);">
+                    Zero overhead, optimized for years
+                </p>
+            </div>
+
+            <div class="architecture-diagram">
+                <h4 style="margin-top: 0;">QAIL IPC Daemon</h4>
+                <pre>
+Go App
+  ↓ (Unix socket + JSON)
+qail-daemon (Rust/Tokio)
+  ↓ (TCP, pipeline_prepared_fast)
+PostgreSQL
+                </pre>
+                <p style="margin-bottom: 0; color: var(--text-muted);">
+                    Extra hop, but prepared stmt caching!
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Results Table -->
+        <h2>50 Million Query Results</h2>
+
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Driver</th>
+                    <th>Queries/sec</th>
+                    <th>Total Time</th>
+                    <th>Per Query</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>pgx (SendBatch)</td>
+                    <td class="winner">239,794</td>
+                    <td>208.5s</td>
+                    <td>4,170ns</td>
+                </tr>
+                <tr>
+                    <td>QAIL IPC (PreparedPipeline)</td>
+                    <td class="winner">237,561</td>
+                    <td>210.5s</td>
+                    <td>4,210ns</td>
+                </tr>
+                <tr>
+                    <td>Native Rust (baseline)</td>
+                    <td>355,000</td>
+                    <td>141s</td>
+                    <td>2,817ns</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Test Configuration -->
+        <h2>Test Configuration</h2>
+
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Queries</td>
+                    <td>50,000,000</td>
+                </tr>
+                <tr>
+                    <td>Batch Size</td>
+                    <td>10,000 queries</td>
+                </tr>
+                <tr>
+                    <td>Query Type</td>
+                    <td><code>SELECT id, name FROM harbors LIMIT $1</code></td>
+                </tr>
+                <tr>
+                    <td>Protocol</td>
+                    <td>Prepared statement + pipeline mode</td>
+                </tr>
+                <tr>
+                    <td>Connection</td>
+                    <td>Single connection (no pooling)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Evolution of QAIL Go -->
+        <h2>Evolution: From CGO to IPC Daemon</h2>
+
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Mode</th>
+                    <th>Queries/sec</th>
+                    <th>vs pgx</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>QAIL CGO (original)</td>
+                    <td>126,000</td>
+                    <td>53%</td>
+                    <td>CGO overhead, Go I/O</td>
+                </tr>
+                <tr>
+                    <td>QAIL IPC (PipelineFast)</td>
+                    <td>42,000</td>
+                    <td>18%</td>
+                    <td>Full Query struct per batch</td>
+                </tr>
+                <tr>
+                    <td class="winner">QAIL IPC (PreparedPipeline)</td>
+                    <td class="winner">237,561</td>
+                    <td class="winner">99%</td>
+                    <td>Prepared stmt caching</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Why PreparedPipeline is Fast -->
+        <h2>Why PreparedPipeline Matches pgx</h2>
+
+        <div class="insight-box">
+            <p><strong>The Secret:</strong> Parse once, Bind+Execute many.</p>
+            <p style="margin-bottom: 0;">
+                The Rust daemon caches the prepared statement after a single <code
+                    >Prepare</code
+                > call. Subsequent <code>PreparedPipeline</code> calls only send parameter
+                values, not the full query structure. This eliminates the JSON overhead
+                for the SQL template.
+            </p>
+        </div>
+
+        <div class="architecture-diagram">
+            <pre>
+┌─────────────────────────────────────────────────────────┐
+│ Go Client                                                │
+├─────────────────────────────────────────────────────────┤
+│ 1. Prepare("SELECT ... LIMIT $1") → handle              │
+│ 2. PreparedPipeline(handle, [["5"],["3"],["1"],...])    │
+│    ↓ (small JSON: just params)                          │
+├─────────────────────────────────────────────────────────┤
+│ qail-daemon (Rust)                                       │
+├─────────────────────────────────────────────────────────┤
+│ - Lookup cached PreparedStatement by handle             │
+│ - Call pipeline_prepared_fast() → Bind+Execute × 10,000 │
+│ - Return count (no row parsing overhead)                │
+└─────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
+        <!-- Future Optimizations -->
+        <h2>Potential Optimizations (Not Yet Tuned)</h2>
+
+        <table class="benchmark-table">
+            <thead>
+                <tr>
+                    <th>Optimization</th>
+                    <th>Estimated Gain</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MessagePack instead of JSON</td>
+                    <td>+10-15%</td>
+                    <td>Planned</td>
+                </tr>
+                <tr>
+                    <td>Pre-encoded params in Go</td>
+                    <td>+5-10%</td>
+                    <td>Planned</td>
+                </tr>
+                <tr>
+                    <td>Connection pooling in daemon</td>
+                    <td>+5%</td>
+                    <td>Planned</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Potential</strong></td>
+                    <td><strong>260K+ q/s</strong></td>
+                    <td>Could beat pgx</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Conclusion -->
+        <h2>Conclusion</h2>
+
+        <p>
+            QAIL's IPC daemon architecture proves that <strong
+                >language-agnostic database access</strong
+            >
+            doesn't have to sacrifice performance. With prepared statement caching,
+            the Rust daemon achieves <strong
+                >99% of pure Go pgx performance</strong
+            > while offering:
+        </p>
+
+        <ul>
+            <li>AST-native query building</li>
+            <li>Cross-language consistency (Go, Python, PHP, Zig)</li>
+            <li>QAIL's type-safe query syntax</li>
+            <li>Single daemon serving multiple clients</li>
+        </ul>
+
+        <div class="highlight-card">
+            <h3>🎯 Bottom Line</h3>
+            <div class="stats">
+                <div>
+                    <div class="stats-item"><strong>99%</strong></div>
+                    <div class="stats-label">of pgx performance</div>
+                </div>
+                <div>
+                    <div class="stats-item"><strong>237K</strong></div>
+                    <div class="stats-label">queries/second</div>
+                </div>
+                <div>
+                    <div class="stats-item"><strong>0</strong></div>
+                    <div class="stats-label">CGO overhead</div>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; margin-top: 3rem;">
+            <a href="/benchmarks" class="btn">← All Benchmarks</a>
+        </p>
+    </main>
+</BaseLayout>

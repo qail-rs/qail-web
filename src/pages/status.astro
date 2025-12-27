@@ -1,8 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Feature Status | QAIL" description="Current support status for QAIL layers: AST, Protocol Encoders, and Drivers.">
+<BaseLayout
+    title="Feature Status | QAIL"
+    description="Current support status for QAIL layers: AST, Protocol Encoders, and Drivers."
+>
     <header class="page-header">
         <div class="container">
             <h1>Feature Status</h1>
@@ -12,12 +15,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <main class="page-content">
         <div class="container">
-
             <!-- Architecture Overview -->
             <section style="margin-bottom: 3rem;">
                 <div
-                    style="background: var(--surface-2); border-radius: 12px; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; display: flex; justify-content: center;">
-                    <pre style="margin: 0; white-space: pre-wrap; text-align: left;">
+                    style="background: var(--surface-2); border-radius: 12px; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; display: flex; justify-content: center;"
+                >
+                    <pre
+                        style="margin: 0; white-space: pre-wrap; text-align: left;">
 ┌─────────────────────────────────────────────────────────────┐
 │                  QAIL Layered Architecture                  │
 ├─────────────────────────────────────────────────────────────┤
@@ -39,23 +43,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </div>
             </section>
 
-            <section class="status-legend"
-                style="display: flex; gap: 24px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap;">
+            <section
+                class="status-legend"
+                style="display: flex; gap: 24px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap;"
+            >
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="status-dot full"></span> <span>Complete</span>
+                    <span class="status-dot full"></span>
+                    <span>Complete</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="status-dot partial"></span> <span>In Progress</span>
+                    <span class="status-dot partial"></span>
+                    <span>In Progress</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="status-dot planned"></span> <span>Planned</span>
+                    <span class="status-dot planned"></span>
+                    <span>Planned</span>
                 </div>
             </section>
 
             <!-- Layer 1: AST -->
             <section>
                 <h2 class="section-title">Layer 1: Intent (qail-core)</h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                <p
+                    style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;"
+                >
                     The universal AST that represents all database operations
                 </p>
                 <div class="matrix-wrapper">
@@ -70,27 +81,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                         <tbody>
                             <tr>
                                 <td class="feature-name">QailCmd AST</td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
                                 <td>Core data structure for all query types</td>
                             </tr>
                             <tr>
                                 <td class="feature-name">Builder API</td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
-                                <td><code>.get() .filter() .order_by() .limit()</code></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
+                                <td
+                                    ><code
+                                        >.get() .filter() .order_by() .limit()</code
+                                    ></td
+                                >
                             </tr>
                             <tr>
                                 <td class="feature-name">Parser</td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
                                 <td>Text syntax → AST (for CLI, LSP, WASM)</td>
                             </tr>
                             <tr>
                                 <td class="feature-name">Validator</td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
-                                <td>Schema validation with fuzzy suggestions</td>
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
+                                <td>Schema validation with fuzzy suggestions</td
+                                >
                             </tr>
                             <tr>
                                 <td class="feature-name">Formatter</td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
                                 <td>AST → canonical text (qail fmt)</td>
                             </tr>
                         </tbody>
@@ -100,8 +131,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             <!-- Layer 2: Protocol Encoders -->
             <section style="margin-top: 60px;">
-                <h2 class="section-title">Layer 2: Brain (Protocol Encoders)</h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                <h2 class="section-title">
+                    Layer 2: Brain (Protocol Encoders)
+                </h2>
+                <p
+                    style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;"
+                >
                     Pure, synchronous conversion: AST → Wire Protocol Bytes
                 </p>
                 <div class="matrix-wrapper">
@@ -116,16 +151,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="feature-name"><img src="/icons/postgresql.svg" width="20"> PostgreSQL</td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
-                                <td class="status-cell"><span class="status-badge full">100%</span></td>
+                                <td class="feature-name"
+                                    ><img
+                                        src="/icons/postgresql.svg"
+                                        width="20"
+                                    /> PostgreSQL</td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">100%</span
+                                    ></td
+                                >
                             </tr>
                             <tr>
-                                <td class="feature-name"><img src="/icons/sqlite.svg" width="20"> SQLite</td>
-                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
-                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
-                                <td class="status-cell"><span class="status-badge planned">v1.0</span></td>
+                                <td class="feature-name"
+                                    ><img src="/icons/sqlite.svg" width="20" /> SQLite</td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge planned"
+                                        >v1.0</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge planned"
+                                        >v1.0</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge planned"
+                                        >v1.0</span
+                                    ></td
+                                >
                             </tr>
                         </tbody>
                     </table>
@@ -135,7 +198,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <!-- Layer 3: Drivers -->
             <section style="margin-top: 60px;">
                 <h2 class="section-title">Layer 3: Muscle (Async Drivers)</h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                <p
+                    style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;"
+                >
                     Network I/O, connection pooling, response decoding
                 </p>
                 <div class="matrix-wrapper">
@@ -151,25 +216,58 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="feature-name"><img src="/icons/rust.svg" width="20"> qail-pg</td>
+                                <td class="feature-name"
+                                    ><img src="/icons/rust.svg" width="20" /> qail-pg</td
+                                >
                                 <td class="status-cell">Rust</td>
-                                <td class="status-cell"><span class="status-badge full">80%</span></td>
-                                <td class="status-cell"><span class="status-badge full">✓</span></td>
-                                <td class="status-cell"><span class="status-badge full">✓</span></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge full">80%</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">✓</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">✓</span
+                                    ></td
+                                >
                             </tr>
                             <tr>
-                                <td class="feature-name"><img src="/icons/python.svg" width="20"> qail-py</td>
+                                <td class="feature-name"
+                                    ><img src="/icons/python.svg" width="20" /> qail-py</td
+                                >
                                 <td class="status-cell">Python</td>
-                                <td class="status-cell"><span class="status-badge partial">Beta</span></td>
-                                <td class="status-cell"><span class="status-badge full">✓</span></td>
-                                <td class="status-cell"><span class="status-badge partial">🚧</span></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge partial"
+                                        >Beta</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">✓</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge partial">🚧</span
+                                    ></td
+                                >
                             </tr>
                             <tr>
                                 <td class="feature-name">⚡ qail-ffi</td>
                                 <td class="status-cell">C / C++</td>
-                                <td class="status-cell"><span class="status-badge partial">Alpha</span></td>
-                                <td class="status-cell"><span class="status-badge full">✓</span></td>
-                                <td class="status-cell"><span class="status-badge partial">🚧</span></td>
+                                <td class="status-cell"
+                                    ><span class="status-badge partial"
+                                        >Alpha</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge full">✓</span
+                                    ></td
+                                >
+                                <td class="status-cell"
+                                    ><span class="status-badge partial">🚧</span
+                                    ></td
+                                >
                             </tr>
                         </tbody>
                     </table>
@@ -180,11 +278,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <section style="margin-top: 60px;">
                 <h2 class="section-title">Layer 4: Interface</h2>
                 <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; justify-content: center;">
-                    <div class="feature-card" style="padding: 24px; text-align: center;">
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; justify-content: center;"
+                >
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center;"
+                    >
                         <span style="font-size: 2rem;">💻</span>
                         <h4 style="margin: 12px 0;">qail_CLI</h4>
-                        <span class="status-badge full">Stable</span>
+                        <span class="status-badge partial">Beta</span>
                     </div>
                 </div>
             </section>
@@ -192,38 +294,88 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <!-- Legacy Transpiler -->
             <section style="margin-top: 60px;">
                 <h2 class="section-title">Legacy: SQL Transpiler</h2>
-                <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;">
+                <p
+                    style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem;"
+                >
                     AST → SQL String (for compatibility, WASM playground)
                 </p>
                 <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; max-width: 800px; margin: 0 auto;">
-                    <div class="feature-card" style="padding: 16px; text-align: center;">
-                        <img src="/icons/postgresql.svg" width="24" style="margin-bottom: 8px;">
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; max-width: 800px; margin: 0 auto;"
+                >
+                    <div
+                        class="feature-card"
+                        style="padding: 16px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/postgresql.svg"
+                            width="24"
+                            style="margin-bottom: 8px;"
+                        />
                         <div style="font-size: 0.85rem;">PostgreSQL</div>
-                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                        <span class="status-badge full" style="margin-top: 8px;"
+                            >✓</span
+                        >
                     </div>
-                    <div class="feature-card" style="padding: 16px; text-align: center;">
-                        <img src="/icons/sqlite.svg" width="24" style="margin-bottom: 8px;">
+                    <div
+                        class="feature-card"
+                        style="padding: 16px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/sqlite.svg"
+                            width="24"
+                            style="margin-bottom: 8px;"
+                        />
                         <div style="font-size: 0.85rem;">SQLite</div>
-                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                        <span class="status-badge full" style="margin-top: 8px;"
+                            >✓</span
+                        >
                     </div>
-                    <div class="feature-card" style="padding: 16px; text-align: center;">
-                        <img src="/icons/mongodb.svg" width="24" style="margin-bottom: 8px;">
+                    <div
+                        class="feature-card"
+                        style="padding: 16px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/mongodb.svg"
+                            width="24"
+                            style="margin-bottom: 8px;"
+                        />
                         <div style="font-size: 0.85rem;">MongoDB</div>
-                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                        <span class="status-badge full" style="margin-top: 8px;"
+                            >✓</span
+                        >
                     </div>
-                    <div class="feature-card" style="padding: 16px; text-align: center;">
-                        <img src="/icons/dynamodb.svg" width="24" style="margin-bottom: 8px;">
+                    <div
+                        class="feature-card"
+                        style="padding: 16px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/dynamodb.svg"
+                            width="24"
+                            style="margin-bottom: 8px;"
+                        />
                         <div style="font-size: 0.85rem;">DynamoDB</div>
-                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                        <span class="status-badge full" style="margin-top: 8px;"
+                            >✓</span
+                        >
                     </div>
-                    <div class="feature-card" style="padding: 16px; text-align: center;">
-                        <img src="/icons/qdrant.svg" width="24" style="margin-bottom: 8px;">
+                    <div
+                        class="feature-card"
+                        style="padding: 16px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/qdrant.svg"
+                            width="24"
+                            style="margin-bottom: 8px;"
+                        />
                         <div style="font-size: 0.85rem;">Qdrant</div>
-                        <span class="status-badge full" style="margin-top: 8px;">✓</span>
+                        <span class="status-badge full" style="margin-top: 8px;"
+                            >✓</span
+                        >
                     </div>
                 </div>
-                <p style="text-align: center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.85rem;">
+                <p
+                    style="text-align: center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.85rem;"
+                >
                     Note: Only databases with open protocols are fully supported
                 </p>
             </section>
@@ -232,30 +384,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <section style="margin-top: 60px;">
                 <h2 class="section-title">Language Bindings</h2>
                 <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px;">
-                    <div class="feature-card" style="padding: 24px; text-align: center;">
-                        <span style="font-size: 2rem;">🦀</span>
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px;"
+                >
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center; border-color: #f7a41d;"
+                    >
+                        <img
+                            src="/icons/zig.svg"
+                            alt="Zig"
+                            style="width: 48px; height: 48px;"
+                        />
+                        <h4 style="margin: 12px 0;">Zig</h4>
+                        <span
+                            class="status-badge partial"
+                            style="background: #f7a41d; color: #000;">NEW</span
+                        >
+                    </div>
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/rust.svg"
+                            alt="Rust"
+                            style="width: 48px; height: 48px;"
+                        />
                         <h4 style="margin: 12px 0;">Rust</h4>
-                        <span class="status-badge full">Stable</span>
+                        <span class="status-badge partial">Beta</span>
                     </div>
-                    <div class="feature-card" style="padding: 24px; text-align: center;">
-                        <span style="font-size: 2rem;">📦</span>
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/nodejs.svg"
+                            alt="Node.js"
+                            style="width: 48px; height: 48px;"
+                        />
                         <h4 style="margin: 12px 0;">Node.js / WASM</h4>
-                        <span class="status-badge full">Stable</span>
+                        <span class="status-badge partial">Beta</span>
                     </div>
-                    <div class="feature-card" style="padding: 24px; text-align: center;">
-                        <span style="font-size: 2rem;">🐍</span>
-                        <h4 style="margin: 12px 0;">Python</h4>
-                        <span class="status-badge partial">via FFI</span>
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/php.svg"
+                            alt="PHP"
+                            style="width: 48px; height: 48px;"
+                        />
+                        <h4 style="margin: 12px 0;">PHP</h4>
+                        <span class="status-badge partial">Beta</span>
                     </div>
-                    <div class="feature-card" style="padding: 24px; text-align: center;">
-                        <span style="font-size: 2rem;">🐹</span>
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/go.svg"
+                            alt="Go"
+                            style="width: 48px; height: 48px;"
+                        />
                         <h4 style="margin: 12px 0;">Go</h4>
-                        <span class="status-badge partial">via FFI</span>
+                        <span class="status-badge partial">Beta</span>
+                    </div>
+                    <div
+                        class="feature-card"
+                        style="padding: 24px; text-align: center;"
+                    >
+                        <img
+                            src="/icons/python.svg"
+                            alt="Python"
+                            style="width: 48px; height: 48px;"
+                        />
+                        <h4 style="margin: 12px 0;">Python</h4>
+                        <span class="status-badge partial">Beta</span>
                     </div>
                 </div>
             </section>
-
         </div>
     </main>
 </BaseLayout>
