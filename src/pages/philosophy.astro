@@ -1,12 +1,17 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="The Manifesto | QAIL" description="Why we built QAIL: Skip the string layer. AST to wire protocol bytes. The manifesto behind the vision.">
+<BaseLayout
+    title="The Manifesto | QAIL"
+    description="Why we built QAIL: Skip the string layer. AST to wire protocol bytes. The manifesto behind the vision."
+>
     <header class="page-header">
         <div class="container">
             <h1>The Manifesto</h1>
-            <p class="subtitle">A story about the "Database Dilemma" and why we built QAIL.</p>
+            <p class="subtitle">
+                A story about the "Database Dilemma" and why we built QAIL.
+            </p>
         </div>
     </header>
 
@@ -14,106 +19,175 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="container prose">
             <section>
                 <h2>The Struggle: "Polyglot Hell"</h2>
-                <p>We are polyglot developers. On Monday, we write <strong>Rust</strong>. On Tuesday,
-                    <strong>Go</strong>. On Wednesday, we maintain a legacy <strong>PHP</strong> system.
+                <p>
+                    We are polyglot developers. On Monday, we write <strong
+                        >Rust</strong
+                    >. On Tuesday,
+                    <strong>Go</strong>. On Wednesday, we maintain a legacy <strong
+                        >PHP</strong
+                    > system.
                 </p>
-                <p>Every time we switch languages, we have to switch our paradigms:</p>
+                <p>
+                    Every time we switch languages, we have to switch our
+                    paradigms:
+                </p>
                 <ul>
-                    <li>In <strong>Rust</strong>, we choose between Diesel's strict compile-time types or SQLx's raw
-                        flexibility.</li>
-                    <li>In <strong>Go</strong>, we balance GORM's convenience with the performance of raw
+                    <li>
+                        In <strong>Rust</strong>, we choose between Diesel's
+                        strict compile-time types or SQLx's raw flexibility.
+                    </li>
+                    <li>
+                        In <strong>Go</strong>, we balance GORM's convenience
+                        with the performance of raw
                         <code>database/sql</code>.
                     </li>
-                    <li>In <strong>Node.js</strong>, we rely on Prisma for safety but pay the cost of heavy binary
-                        sidecars.</li>
-                    <li>In <strong>Python</strong>, we leverage Django's speed of development but hit performance walls
-                        at scale.</li>
-                    <li>In <strong>PHP</strong>, we love Eloquent's expressiveness but sometimes need lighter, faster
-                        query options.</li>
+                    <li>
+                        In <strong>Node.js</strong>, we rely on Prisma for
+                        safety but pay the cost of heavy binary sidecars.
+                    </li>
+                    <li>
+                        In <strong>Python</strong>, we leverage Django's speed
+                        of development but hit performance walls at scale.
+                    </li>
+                    <li>
+                        In <strong>PHP</strong>, we love Eloquent's
+                        expressiveness but sometimes need lighter, faster query
+                        options.
+                    </li>
                 </ul>
-                <p><strong>The problem isn't the data. The problem is the string layer.</strong> Every ORM generates SQL
-                    strings.
-                    Every driver parses them again. Why not skip strings entirely?</p>
+                <p>
+                    <strong
+                        >The problem isn't the data. The problem is the string
+                        layer.</strong
+                    > Every ORM generates SQL strings. Every driver parses them again.
+                    Why not skip strings entirely?
+                </p>
             </section>
 
             <section>
                 <h2>The Origin: "I Don't Want You to Suffer"</h2>
-                <blockquote class="manifesto-quote"
-                    style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05);">
-                    "I originally built QAIL for internal use to solve my own polyglot headaches. But I realized that
-                    keeping it private meant letting other engineers suffer through the same 'Database Dilemma'. I
-                    decided to open-source it so we can all skip the string layer."
+                <blockquote
+                    class="manifesto-quote"
+                    style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05);"
+                >
+                    "I originally built QAIL for internal use to solve my own
+                    polyglot headaches. But I realized that keeping it private
+                    meant letting other engineers suffer through the same
+                    'Database Dilemma'. I decided to open-source it so we can
+                    all skip the string layer."
                 </blockquote>
             </section>
 
             <section>
                 <h2>The Realization: "SQL is Assembly"</h2>
-                <p>We realized something profound: <strong>SQL is not source code. SQL is Assembly.</strong></p>
-                <p>SQL is verbose, powerful, and dangerous. It is the low-level instruction set of the database engine.
+                <p>
+                    We realized something profound: <strong
+                        >SQL is not source code. SQL is Assembly.</strong>
+                </p>
+                <p>
+                    SQL is verbose, powerful, and dangerous. It is the low-level
+                    instruction set of the database engine.
                 </p>
                 <ul>
-                    <li><strong>Raw SQL</strong> offers ultimate control, but maintaining raw strings across a large
-                        codebase requires immense discipline.</li>
-                    <li><strong>ORMs</strong> provide fantastic productivity, but the abstraction sometimes comes at the
-                        cost of fine-grained performance control.</li>
+                    <li>
+                        <strong>Raw SQL</strong> offers ultimate control, but maintaining
+                        raw strings across a large codebase requires immense discipline.
+                    </li>
+                    <li>
+                        <strong>ORMs</strong> provide fantastic productivity, but
+                        the abstraction sometimes comes at the cost of fine-grained
+                        performance control.
+                    </li>
                 </ul>
-                <p>We didn't need a compromise. We needed a <strong>Universal AST</strong>.</p>
+                <p>
+                    We didn't need a compromise. We needed a <strong
+                        >Universal AST</strong
+                    >.
+                </p>
             </section>
 
             <section>
                 <h2>The Savior: QAIL</h2>
-                <p>QAIL is the "Universal AST for Databases". It is not a text syntax that compiles to SQL—it is a
-                    native data structure that encodes directly to database wire protocols.</p>
-                <p>It separates the <strong>Code</strong> (your query AST) from the <strong>Data</strong> (your
-                    parameters). It creates a unified structure that works the same way in Rust, Go, Node, and PHP.</p>
+                <p>
+                    QAIL is the "Universal AST for Databases". It is not a text
+                    syntax that compiles to SQL—it is a native data structure
+                    that encodes directly to database wire protocols.
+                </p>
+                <p>
+                    It separates the <strong>Code</strong> (your query AST) from the
+                    <strong>Data</strong> (your parameters). It creates a unified
+                    structure that works the same way in Rust, Go, Node, and PHP.
+                </p>
 
                 <div class="comparison-grid">
                     <div class="code-block qail">
                         <small>Build This (Rust)</small>
-                        <code>QailCmd::get("users")
-    .columns(["id", "email"])
-    .filter("active", Eq, true)
-    .limit(10)</code>
+                        <code
+                            >Qail::get("users") .columns(["id", "email"])
+                            .filter("active", Eq, true) .limit(10)</code
+                        >
                     </div>
                     <div class="code-block sql">
                         <small>Encodes To (Wire Protocol)</small>
-                        <code>SELECT id, email FROM users WHERE active = true LIMIT 10</code>
+                        <code
+                            >SELECT id, email FROM users WHERE active = true
+                            LIMIT 10</code
+                        >
                     </div>
                 </div>
 
-                <p>Now, your team builds with <strong>one AST</strong>. The Rust dev, the Go dev, and the Frontend dev
-                    all
-                    use the same data structure.</p>
+                <p>
+                    Now, your team builds with <strong>one AST</strong>. The
+                    Rust dev, the Go dev, and the Frontend dev all use the same
+                    data structure.
+                </p>
 
                 <blockquote class="manifesto-quote">
-                    "Safety shouldn't require a prison of boilerplate. We moved validation from the 'String' layer to
-                    the 'AST' layer. Code is data. Data is typed. Injection is structurally impossible."
+                    "Safety shouldn't require a prison of boilerplate. We moved
+                    validation from the 'String' layer to the 'AST' layer. Code
+                    is data. Data is typed. Injection is structurally
+                    impossible."
                 </blockquote>
 
-                <p>By preventing SQL injection at the <strong>AST level</strong>, QAIL ensures your queries are safe
-                    before they even reach the database. Unlike ORMs that generate strings at runtime, QAIL encodes
-                    directly to wire protocol bytes—<strong>no string layer at all</strong>.</p>
+                <p>
+                    By preventing SQL injection at the <strong>AST level</strong
+                    >, QAIL ensures your queries are safe before they even reach
+                    the database. Unlike ORMs that generate strings at runtime,
+                    QAIL encodes directly to wire protocol bytes—<strong
+                        >no string layer at all</strong
+                    >.
+                </p>
             </section>
 
             <section>
                 <h2>The Architecture: Native Power</h2>
-                <p>QAIL is written in <strong>Pure Rust</strong>. It exposes:</p>
+                <p>
+                    QAIL is written in <strong>Pure Rust</strong>. It exposes:
+                </p>
                 <ul>
-                    <li><strong>A C-API</strong> for Go, Python, and Java (via FFI).</li>
-                    <li><strong>A WASM Module</strong> for Node.js and Browsers.</li>
+                    <li>
+                        <strong>A C-API</strong> for Go, Python, and Java (via FFI).
+                    </li>
+                    <li>
+                        <strong>A WASM Module</strong> for Node.js and Browsers.
+                    </li>
                     <li><strong>A Native Crate</strong> for Rust users.</li>
                 </ul>
-                <p>It runs in-process. It has zero network overhead. It turns your query generation into a simple CPU
-                    function call.</p>
+                <p>
+                    It runs in-process. It has zero network overhead. It turns
+                    your query generation into a simple CPU function call.
+                </p>
             </section>
 
-            <hr style="margin: 3rem 0; opacity: 0.1;">
+            <hr style="margin: 3rem 0; opacity: 0.1;" />
 
             <section>
                 <h2>The AST Builder API</h2>
-                <p>We designed the builder API for <strong>Type Safety and Clarity.</strong> Every method is purposeful.
-                    No
-                    strings to parse.</p>
+                <p>
+                    We designed the builder API for <strong
+                        >Type Safety and Clarity.</strong
+                    > Every method is purposeful. No strings to parse.
+                </p>
                 <table style="width: 100%; margin: 1rem 0;">
                     <thead>
                         <tr>
@@ -124,9 +198,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>QailCmd::get()</code></td>
+                            <td><code>Qail::get()</code></td>
                             <td>SELECT query</td>
-                            <td><code>QailCmd::get("users")</code></td>
+                            <td><code>Qail::get("users")</code></td>
                         </tr>
                         <tr>
                             <td><code>.columns()</code></td>
@@ -151,7 +225,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                         <tr>
                             <td><code>.left_join()</code></td>
                             <td>Join tables</td>
-                            <td><code>.left_join("profiles", "users.id", "profiles.user_id")</code></td>
+                            <td
+                                ><code
+                                    >.left_join("profiles", "users.id",
+                                    "profiles.user_id")</code
+                                ></td
+                            >
                         </tr>
                     </tbody>
                 </table>
@@ -159,24 +238,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             <section>
                 <h2>🛡️ Why No Raw Strings?</h2>
-                <p>QAIL intentionally does <strong>not</strong> provide a "Raw SQL" escape hatch. This is not a missing
-                    feature—it's a deliberate design choice.</p>
+                <p>
+                    QAIL intentionally does <strong>not</strong> provide a "Raw SQL"
+                    escape hatch. This is not a missing feature—it's a deliberate
+                    design choice.
+                </p>
 
                 <h3>The Promise</h3>
                 <blockquote
-                    style="border-left: 4px solid var(--primary); padding-left: 1rem; margin: 1.5rem 0; font-style: italic;">
-                    "If it compiles in QAIL, it is a valid, safe protocol packet."
+                    style="border-left: 4px solid var(--primary); padding-left: 1rem; margin: 1.5rem 0; font-style: italic;"
+                >
+                    "If it compiles in QAIL, it is a valid, safe protocol
+                    packet."
                 </blockquote>
 
                 <h3>Soundness by Construction</h3>
                 <p>By forcing all queries through the AST, QAIL guarantees:</p>
                 <ul>
-                    <li><strong>SQL Injection is Structurally Impossible</strong> — Code and data are never mixed.
-                        Parameters are always separate from query structure.</li>
-                    <li><strong>Syntax Errors at Construction Time</strong> — Invalid query structures fail when
-                        building the AST, before ever touching the database.</li>
-                    <li><strong>Global Safety Invariant</strong> — Every query that executes was validated at the type
-                        level (compiled languages) or construction time (dynamic languages).</li>
+                    <li>
+                        <strong>SQL Injection is Structurally Impossible</strong
+                        > — Code and data are never mixed. Parameters are always separate
+                        from query structure.
+                    </li>
+                    <li>
+                        <strong>Syntax Errors at Construction Time</strong> — Invalid
+                        query structures fail when building the AST, before ever touching
+                        the database.
+                    </li>
+                    <li>
+                        <strong>Global Safety Invariant</strong> — Every query that
+                        executes was validated at the type level (compiled languages)
+                        or construction time (dynamic languages).
+                    </li>
                 </ul>
 
                 <h3>The Rust vs C++ Analogy</h3>
@@ -191,7 +284,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <tbody>
                         <tr>
                             <td>C++ (escape hatches)</td>
-                            <td>"Here's safe code, but use pointers if you need"</td>
+                            <td
+                                >"Here's safe code, but use pointers if you
+                                need"</td
+                            >
                             <td>People use pointers → Bugs happen</td>
                         </tr>
                         <tr>
@@ -206,21 +302,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                         </tr>
                         <tr>
                             <td><strong>QAIL</strong> (pure AST)</td>
-                            <td>"If it's not in the AST, you can't query it"</td>
+                            <td>"If it's not in the AST, you can't query it"</td
+                            >
                             <td>People adapt → Injection impossible</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <h3>For Those Who Need Raw SQL</h3>
-                <p>If you need raw SQL strings, use <code>sqlx</code> or another driver. QAIL is for those who want
+                <p>
+                    If you need raw SQL strings, use <code>sqlx</code> or another
+                    driver. QAIL is for those who want
                     <strong>guarantees</strong>, not flexibility.
                 </p>
 
-                <p style="text-align: center; font-size: 1.25rem; margin-top: 2rem; color: var(--primary);"><em>"QAIL:
-                        Sound by Construction."</em></p>
+                <p
+                    style="text-align: center; font-size: 1.25rem; margin-top: 2rem; color: var(--primary);"
+                >
+                    <em>"QAIL: Sound by Construction."</em>
+                </p>
             </section>
-
         </div>
     </main>
 </BaseLayout>

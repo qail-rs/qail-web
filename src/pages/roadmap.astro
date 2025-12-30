@@ -1,15 +1,18 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Roadmap | QAIL" description="QAIL Roadmap: The journey from SQL strings to pure AST-native database access.">
+<BaseLayout
+    title="Roadmap | QAIL"
+    description="QAIL Roadmap: The journey from SQL strings to pure AST-native database access."
+>
     <style>
         .evolution-block {
             background: var(--bg-secondary);
             border-radius: 12px;
             padding: 1.5rem;
             margin: 1.5rem 0;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: "JetBrains Mono", monospace;
         }
 
         .evolution-block .era {
@@ -119,7 +122,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             background: #0d1117;
             border-radius: 12px;
             padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: "JetBrains Mono", monospace;
             font-size: 0.85rem;
             overflow-x: auto;
             margin: 1.5rem 0;
@@ -127,7 +130,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         }
 
         .acknowledgment {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            background: linear-gradient(
+                135deg,
+                rgba(59, 130, 246, 0.1),
+                rgba(168, 85, 247, 0.1)
+            );
             border-left: 4px solid var(--primary);
             padding: 1rem 1.5rem;
             border-radius: 0 8px 8px 0;
@@ -157,7 +164,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <header class="page-header">
         <div class="container">
             <h1>Roadmap</h1>
-            <p class="subtitle">The journey to pure AST-native database access.</p>
+            <p class="subtitle">
+                The journey to pure AST-native database access.
+            </p>
         </div>
     </header>
 
@@ -166,7 +175,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <section>
                 <h2>🎯 Vision</h2>
                 <blockquote class="manifesto-quote">
-                    "SQL is a text protocol designed for humans to type.<br>
+                    "SQL is a text protocol designed for humans to type.<br />
                     QAIL is a binary protocol designed for machines to optimize."
                 </blockquote>
             </section>
@@ -177,34 +186,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <div class="era">
                         <span class="era-num">Era 1</span>
                         <span class="era-name">SQL Strings</span>
-                        <span class="era-desc">"Trust me, this string is safe"</span>
+                        <span class="era-desc"
+                            >"Trust me, this string is safe"</span
+                        >
                     </div>
                     <div class="era">
                         <span class="era-num">Era 2</span>
                         <span class="era-name">ORMs</span>
-                        <span class="era-desc">"Safe, but locked to one language"</span>
+                        <span class="era-desc"
+                            >"Safe, but locked to one language"</span
+                        >
                     </div>
                     <div class="era">
                         <span class="era-num">Era 3</span>
                         <span class="era-name">Query Builders</span>
-                        <span class="era-desc">"Safe, but still generates strings"</span>
+                        <span class="era-desc"
+                            >"Safe, but still generates strings"</span
+                        >
                     </div>
                     <div class="era">
                         <span class="era-num">Era 4</span>
                         <span class="era-name">SQLx</span>
-                        <span class="era-desc">"Compile-time checked SQL — the breakthrough"</span>
+                        <span class="era-desc"
+                            >"Compile-time checked SQL — the breakthrough"</span
+                        >
                     </div>
-                    <div class="era" style="background: rgba(59, 130, 246, 0.1); border-radius: 8px; padding: 0.75rem;">
-                        <span class="era-num" style="color: var(--accent-blue);">Era 5</span>
-                        <span class="era-name" style="color: var(--accent-blue);">QAIL</span>
-                        <span class="era-desc">"Pure AST that compiles directly to wire protocol"</span>
+                    <div
+                        class="era"
+                        style="background: rgba(59, 130, 246, 0.1); border-radius: 8px; padding: 0.75rem;"
+                    >
+                        <span class="era-num" style="color: var(--accent-blue);"
+                            >Era 5</span
+                        >
+                        <span
+                            class="era-name"
+                            style="color: var(--accent-blue);">QAIL</span
+                        >
+                        <span class="era-desc"
+                            >"Pure AST that compiles directly to wire protocol"</span
+                        >
                     </div>
                 </div>
 
                 <div class="acknowledgment">
-                    <strong>Acknowledgment:</strong> SQLx pioneered compile-time SQL validation in Rust and remains the
-                    gold standard for SQL-based database access. QAIL builds on this foundation by eliminating strings
-                    entirely — a natural evolution, not a replacement.
+                    <strong>Acknowledgment:</strong> SQLx pioneered compile-time SQL
+                    validation in Rust and remains the gold standard for SQL-based
+                    database access. QAIL builds on this foundation by eliminating
+                    strings entirely — a natural evolution, not a replacement.
                 </div>
             </section>
 
@@ -212,51 +240,122 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <h2>✅ Completed</h2>
 
                 <div class="roadmap-section">
-                    <h3><span class="badge badge-done">Done</span> Core AST (qail-core)</h3>
+                    <h3>
+                        <span class="badge badge-done">Done</span> Core AST (qail-core)
+                    </h3>
                     <ul class="task-list">
-                        <li><span class="check check-done">✓</span> QailCmd universal AST representation</li>
-                        <li><span class="check check-done">✓</span> DML: get, add, set, del commands</li>
-                        <li><span class="check check-done">✓</span> DDL: make (CREATE TABLE), index (CREATE INDEX)</li>
-                        <li><span class="check check-done">✓</span> Joins: left/right/inner with ON conditions</li>
-                        <li><span class="check check-done">✓</span> CTEs: WITH clause support</li>
-                        <li><span class="check check-done">✓</span> Expressions: CASE WHEN, aggregates, window functions</li>
-                        <li><span class="check check-done">✓</span> Builder API for type-safe query construction</li>
+                        <li>
+                            <span class="check check-done">✓</span> Qail universal
+                            AST representation
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> DML: get, add,
+                            set, del commands
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> DDL: make (CREATE
+                            TABLE), index (CREATE INDEX)
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> Joins: left/right/inner
+                            with ON conditions
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> CTEs: WITH clause
+                            support
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> Expressions: CASE
+                            WHEN, aggregates, window functions
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> Builder API for
+                            type-safe query construction
+                        </li>
                     </ul>
                 </div>
 
                 <div class="roadmap-section">
-                    <h3><span class="badge badge-done">Done</span> PostgreSQL Driver (qail-pg)</h3>
+                    <h3>
+                        <span class="badge badge-done">Done</span> PostgreSQL Driver
+                        (qail-pg)
+                    </h3>
                     <ul class="task-list">
-                        <li><span class="check check-done">✓</span> Wire protocol types (FrontendMessage, BackendMessage)</li>
-                        <li><span class="check check-done">✓</span> AstEncoder: AST → BytesMut (DML + DDL)</li>
-                        <li><span class="check check-done">✓</span> Native TLS support (Let's Encrypt)</li>
-                        <li><span class="check check-done">✓</span> Connection handling with tokio</li>
-                        <li><span class="check check-done">✓</span> Layer 2/3 separation (protocol/ vs driver/)</li>
+                        <li>
+                            <span class="check check-done">✓</span> Wire protocol
+                            types (FrontendMessage, BackendMessage)
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> AstEncoder: AST
+                            → BytesMut (DML + DDL)
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> Native TLS support
+                            (Let's Encrypt)
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> Connection handling
+                            with tokio
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> Layer 2/3 separation
+                            (protocol/ vs driver/)
+                        </li>
                     </ul>
                 </div>
 
                 <div class="roadmap-section">
-                    <h3><span class="badge badge-done">Done</span> Developer Tools</h3>
+                    <h3>
+                        <span class="badge badge-done">Done</span> Developer Tools
+                    </h3>
                     <ul class="task-list">
-                        <li><span class="check check-done">✓</span> CLI: qail command with REPL</li>
-                        <li><span class="check check-done">✓</span> LSP: VS Code extension</li>
-                        <li><span class="check check-done">✓</span> WASM: Browser playground</li>
+                        <li>
+                            <span class="check check-done">✓</span> CLI: qail command
+                            with REPL
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> LSP: VS Code extension
+                        </li>
+                        <li>
+                            <span class="check check-done">✓</span> WASM: Browser
+                            playground
+                        </li>
                     </ul>
                 </div>
             </section>
 
             <section>
                 <h2>🚀 In Progress: v0.9.0</h2>
-                <p><strong>Theme:</strong> "AST to Bytes, No Strings Attached"</p>
+                <p>
+                    <strong>Theme:</strong> "AST to Bytes, No Strings Attached"
+                </p>
 
                 <div class="roadmap-section">
-                    <h3><span class="badge badge-progress">In Progress</span> Wire Protocol</h3>
+                    <h3>
+                        <span class="badge badge-progress">In Progress</span> Wire
+                        Protocol
+                    </h3>
                     <ul class="task-list">
-                        <li><span class="check check-pending">○</span> Extended Query Protocol (Parse/Bind/Execute)</li>
-                        <li><span class="check check-pending">○</span> Parameter binding in wire protocol</li>
-                        <li><span class="check check-pending">○</span> Row decoding (bytes → typed values)</li>
-                        <li><span class="check check-pending">○</span> Connection pooling skeleton</li>
-                        <li><span class="check check-pending">○</span> Transaction support (BEGIN/COMMIT/ROLLBACK)</li>
+                        <li>
+                            <span class="check check-pending">○</span> Extended Query
+                            Protocol (Parse/Bind/Execute)
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Parameter binding
+                            in wire protocol
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Row decoding
+                            (bytes → typed values)
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Connection
+                            pooling skeleton
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Transaction
+                            support (BEGIN/COMMIT/ROLLBACK)
+                        </li>
                     </ul>
                 </div>
             </section>
@@ -266,34 +365,61 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <p><strong>Theme:</strong> "Production Ready"</p>
 
                 <div class="roadmap-section">
-                    <h3><span class="badge badge-planned">Planned</span> Core Features</h3>
+                    <h3>
+                        <span class="badge badge-planned">Planned</span> Core Features
+                    </h3>
                     <ul class="task-list">
-                        <li><span class="check check-pending">○</span> Full Extended Query Protocol</li>
-                        <li><span class="check check-pending">○</span> Prepared statement caching</li>
-                        <li><span class="check check-pending">○</span> SCRAM-SHA-256 authentication</li>
-                        <li><span class="check check-pending">○</span> Zero-copy row decoding</li>
-                        <li><span class="check check-pending">○</span> Pipeline mode (batch queries)</li>
+                        <li>
+                            <span class="check check-pending">○</span> Full Extended
+                            Query Protocol
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Prepared statement
+                            caching
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> SCRAM-SHA-256
+                            authentication
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Zero-copy row
+                            decoding
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> Pipeline mode
+                            (batch queries)
+                        </li>
                     </ul>
                 </div>
 
                 <div class="roadmap-section">
-                    <h3><span class="badge badge-planned">Planned</span> Multi-Database</h3>
+                    <h3>
+                        <span class="badge badge-planned">Planned</span> Multi-Database
+                    </h3>
                     <ul class="task-list">
-                        <li><span class="check check-pending">○</span> qail-mysql — MySQL wire protocol</li>
-                        <li><span class="check check-pending">○</span> qail-sqlite — SQLite (embedded, no network)</li>
+                        <li>
+                            <span class="check check-pending">○</span> qail-mysql
+                            — MySQL wire protocol
+                        </li>
+                        <li>
+                            <span class="check check-pending">○</span> qail-sqlite
+                            — SQLite (embedded, no network)
+                        </li>
                     </ul>
                 </div>
             </section>
 
             <section>
                 <h2>💡 Philosophy</h2>
-                <blockquote class="manifesto-quote"
-                    style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05);">
-                    "QAIL eliminates SQL strings entirely. The builder API (QailCmd::get(), QailCmd::add()) is the ONLY
-                    way to construct queries. No parsing at runtime, no strings anywhere."
+                <blockquote
+                    class="manifesto-quote"
+                    style="border-left-color: var(--accent-purple); background: rgba(168, 85, 247, 0.05);"
+                >
+                    "QAIL eliminates SQL strings entirely. The builder API
+                    (Qail::get(), Qail::add()) is the ONLY way to construct
+                    queries. No parsing at runtime, no strings anywhere."
                 </blockquote>
             </section>
-
         </div>
     </main>
 </BaseLayout>

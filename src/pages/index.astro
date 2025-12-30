@@ -24,10 +24,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <div class="demo-target" style="order: 1;">
                         <div class="demo-new">
                             <span class="demo-label">QAIL AST</span>
-                            <code class="qail-code" style="font-size: 0.75rem;"
-                                >QailCmd::get("users") .select_all()
-                                .filter("active", Eq, true)</code
-                            >
+                            <code class="qail-code" style="font-size: 0.75rem;">Qail::get("users")
+  .select_all()
+  .filter("active", Eq, true)</code>
                         </div>
                     </div>
 
@@ -331,8 +330,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <div class="feature-icon">🌐</div>
                     <h3>Polyglot by Design</h3>
                     <p>
-                        Same QailCmd AST encodes to Postgres, MySQL, MongoDB,
-                        and more. Truly database-agnostic.
+                        Same Qail AST encodes to Postgres, MySQL, MongoDB, and
+                        more. Truly database-agnostic.
                     </p>
                 </div>
                 <div class="feature-card">
@@ -593,7 +592,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <span style="color: #8b949e;">You are dropping column</span> <span style="color: #ffa657;">'status'</span><span style="color: #8b949e;">, but it is still used in:</span>
 
    <span style="color: #58a6ff;">📄 src/queries.ts:25</span>  → <span style="color: #7ee787;">get portfolio fields status</span>
-   <span style="color: #58a6ff;">📄 src/api.rs:102</span>     → <span style="color: #7ee787;">QailCmd::get("portfolio").filter("status"...)</span>
+   <span style="color: #58a6ff;">📄 src/api.rs:102</span>     → <span style="color: #7ee787;">Qail::get("portfolio").filter("status"...)</span>
 
 <span style="color: #8b949e;">Fix your code first, or use</span> <span style="color: #ffa657;">--force</span> <span style="color: #8b949e;">to proceed.</span></code></pre>
             </div>

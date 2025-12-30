@@ -202,10 +202,10 @@ async fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h2 id="execute-your-first-query"><a class="header" href="#execute-your-first-query">Execute Your First Query</a></h2>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>use qail_core::ast::{QailCmd, Operator};
+</span>use qail_core::ast::{Qail, Operator};
 
 // Build a SELECT query
-let cmd = QailCmd::get("users")
+let cmd = Qail::get("users")
     .columns(["id", "email"])
     .filter("active", Operator::Eq, true)
     .limit(10);

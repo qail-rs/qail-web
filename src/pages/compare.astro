@@ -1,8 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Examples | QAIL" description="See QAIL AST builder and text syntax in action with real-world examples.">
+<BaseLayout
+    title="Examples | QAIL"
+    description="See QAIL AST builder and text syntax in action with real-world examples."
+>
     <header class="page-header">
         <div class="container">
             <h1>Examples</h1>
@@ -12,17 +15,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <main class="page-content">
         <div class="container prose">
-
             <!-- AST Builder Examples -->
             <section>
                 <h2>AST Builder API (Recommended)</h2>
-                <p style="color: var(--text-muted);">Build queries as typed Rust structs. No parsing. No strings.</p>
+                <p style="color: var(--text-muted);">
+                    Build queries as typed Rust structs. No parsing. No strings.
+                </p>
 
                 <div class="comparison-grid">
                     <div class="code-block qail">
                         <small>Select all users</small>
-                        <code>QailCmd::get("users")
-    .select_all()</code>
+                        <code>Qail::get("users") .select_all()</code>
                     </div>
                     <div class="code-block sql">
                         <small>Wire Protocol Output</small>
@@ -33,48 +36,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <div class="comparison-grid" style="margin-top: 1.5rem;">
                     <div class="code-block qail">
                         <small>Filter with conditions</small>
-                        <code>QailCmd::get("users")
-    .columns(["id", "email"])
-    .filter("active", Eq, true)
-    .order_by("created_at", Desc)
-    .limit(10)</code>
+                        <code
+                            >Qail::get("users") .columns(["id", "email"])
+                            .filter("active", Eq, true) .order_by("created_at",
+                            Desc) .limit(10)</code
+                        >
                     </div>
                     <div class="code-block sql">
                         <small>Wire Protocol Output</small>
-                        <code>SELECT id, email FROM users 
-WHERE active = true 
-ORDER BY created_at DESC 
-LIMIT 10</code>
+                        <code
+                            >SELECT id, email FROM users WHERE active = true
+                            ORDER BY created_at DESC LIMIT 10</code
+                        >
                     </div>
                 </div>
 
                 <div class="comparison-grid" style="margin-top: 1.5rem;">
                     <div class="code-block qail">
                         <small>Insert with returning</small>
-                        <code>QailCmd::add("users")
-    .columns(["email", "name"])
-    .values(["alice@example.com", "Alice"])
-    .returning_all()</code>
+                        <code
+                            >Qail::add("users") .columns(["email", "name"])
+                            .values(["alice@example.com", "Alice"])
+                            .returning_all()</code
+                        >
                     </div>
                     <div class="code-block sql">
                         <small>Wire Protocol Output</small>
-                        <code>INSERT INTO users (email, name) 
-VALUES ('alice@example.com', 'Alice') 
-RETURNING *</code>
+                        <code
+                            >INSERT INTO users (email, name) VALUES
+                            ('alice@example.com', 'Alice') RETURNING *</code
+                        >
                     </div>
                 </div>
 
                 <div class="comparison-grid" style="margin-top: 1.5rem;">
                     <div class="code-block qail">
                         <small>Join tables</small>
-                        <code>QailCmd::get("users")
-    .columns(["name", "avatar"])
-    .left_join("profiles", "users.id", "profiles.user_id")</code>
+                        <code
+                            >Qail::get("users") .columns(["name", "avatar"])
+                            .left_join("profiles", "users.id",
+                            "profiles.user_id")</code
+                        >
                     </div>
                     <div class="code-block sql">
                         <small>Wire Protocol Output</small>
-                        <code>SELECT name, avatar FROM users 
-LEFT JOIN profiles ON users.id = profiles.user_id</code>
+                        <code
+                            >SELECT name, avatar FROM users LEFT JOIN profiles
+                            ON users.id = profiles.user_id</code
+                        >
                     </div>
                 </div>
             </section>
@@ -82,8 +91,10 @@ LEFT JOIN profiles ON users.id = profiles.user_id</code>
             <!-- Text Syntax Examples -->
             <section style="margin-top: 3rem;">
                 <h2>Text Syntax (CLI, LSP, WASM)</h2>
-                <p style="color: var(--text-muted);">Human-readable syntax for developer tools. Parses to AST
-                    internally.</p>
+                <p style="color: var(--text-muted);">
+                    Human-readable syntax for developer tools. Parses to AST
+                    internally.
+                </p>
 
                 <div class="comparison-grid">
                     <div class="code-block qail">
@@ -99,30 +110,33 @@ LEFT JOIN profiles ON users.id = profiles.user_id</code>
                 <div class="comparison-grid" style="margin-top: 1.5rem;">
                     <div class="code-block qail">
                         <small>Filter with conditions</small>
-                        <code>get users fields id, email 
-    where active = true 
-    order by created_at desc 
-    limit 10</code>
+                        <code
+                            >get users fields id, email where active = true
+                            order by created_at desc limit 10</code
+                        >
                     </div>
                     <div class="code-block sql">
                         <small>Transpiled SQL</small>
-                        <code>SELECT id, email FROM users 
-WHERE active = true 
-ORDER BY created_at DESC 
-LIMIT 10</code>
+                        <code
+                            >SELECT id, email FROM users WHERE active = true
+                            ORDER BY created_at DESC LIMIT 10</code
+                        >
                     </div>
                 </div>
 
                 <div class="comparison-grid" style="margin-top: 1.5rem;">
                     <div class="code-block qail">
                         <small>Fuzzy search</small>
-                        <code>get users fields id, name 
-    where name ilike john</code>
+                        <code
+                            >get users fields id, name where name ilike john</code
+                        >
                     </div>
                     <div class="code-block sql">
                         <small>Transpiled SQL</small>
-                        <code>SELECT id, name FROM users 
-WHERE name ILIKE '%john%'</code>
+                        <code
+                            >SELECT id, name FROM users WHERE name ILIKE
+                            '%john%'</code
+                        >
                     </div>
                 </div>
             </section>
@@ -181,7 +195,6 @@ WHERE name ILIKE '%john%'</code>
                     </table>
                 </div>
             </section>
-
         </div>
     </main>
 </BaseLayout>
