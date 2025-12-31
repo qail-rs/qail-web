@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "coal";
             const default_dark_theme = "coal";
-            window.path_to_searchindex_js = "../searchindex-10c225ba.js";
+            window.path_to_searchindex_js = "../searchindex-e82c8622.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-79c9fb58.js"></script>
@@ -187,7 +187,7 @@
 <ul>
 <li><strong>AST-Native</strong> — Direct AST to wire protocol, no SQL strings</li>
 <li><strong>Zero-Alloc</strong> — Reusable buffers, no heap allocation per query</li>
-<li><strong>LRU Statement Cache</strong> — Bounded cache (1000 max), auto-evicts</li>
+<li><strong>LRU Statement Cache</strong> — Bounded cache (100 max), auto-evicts</li>
 <li><strong>SSL/TLS</strong> — Full TLS with mutual TLS (mTLS) support</li>
 <li><strong>SCRAM-SHA-256</strong> — Secure password authentication</li>
 <li><strong>Connection Pooling</strong> — Efficient resource management</li>
@@ -200,10 +200,10 @@
 <p>Prepared statements are cached automatically for best performance.</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// Cache is bounded (default: 1000 statements)
+</span>// Cache is bounded (default: 100 statements)
 // Auto-evicts least recently used when full
 
-let (size, capacity) = driver.cache_stats();  // (42, 1000)
+let (size, capacity) = driver.cache_stats();  // (42, 100)
 
 // Manual clear if needed
 driver.clear_cache();
