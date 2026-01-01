@@ -11,12 +11,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 <span class="hero-icon">🪝</span>
                 <span>QAIL</span>
             </h1>
-            <p class="hero-subtitle">The AST-Native Query Compiler</p>
+            <p class="hero-subtitle">The Zero-Allocation Data Engine</p>
             <p class="hero-tagline">
-                Build with AST. <span class="highlight"
-                    >Execute with Bytes.</span
+                A hyper-optimized driver for the <span class="highlight"
+                    >Converged Data Stack.</span
                 >
             </p>
+            <div
+                style="margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;"
+            >
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #10b981;">✅ PostgreSQL</span>
+                    <span style="color: #6b7280;">—</span>
+                    <em style="color: #9ca3af;"
+                        >146% faster throughput via AST compilation</em
+                    >
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #f59e0b;">🚧 Qdrant</span>
+                    <span style="color: #6b7280;">—</span>
+                    <em style="color: #9ca3af;"
+                        >Zero-copy vector streaming for AI search</em
+                    >
+                </div>
+            </div>
 
             <div class="hero-demo">
                 <div class="demo-compare">
@@ -24,10 +42,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <div class="demo-target" style="order: 1;">
                         <div class="demo-new">
                             <span class="demo-label">QAIL AST</span>
-                            <code class="qail-code" style="font-size: 0.75rem;"
-                                >Qail::get("users") .select_all()
-                                .filter("active", Eq, true)</code
-                            >
+                            <pre
+                                class="qail-code"><code><span class="fn">Qail::get</span>(<span class="str">"users"</span>)
+    .<span class="fn">select_all</span>()
+    .<span class="fn">filter</span>(<span class="str">"active"</span>, <span class="kw">Eq</span>, <span class="bool">true</span>)</code></pre>
                         </div>
                     </div>
 
@@ -52,21 +70,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <!-- Target: PostgreSQL and Qdrant -->
                     <div class="demo-sources" style="order: 3;">
                         <div class="demo-source-card">
-                            <span class="demo-label">PostgreSQL</span>
-                            <code style="font-size: 0.7rem;"
-                                >SELECT * FROM users WHERE active = true</code
-                            >
+                            <span class="demo-label">POSTGRESQL</span>
+                            <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> active = <span class="bool">true</span></code></pre>
                         </div>
-                        <div
-                            class="demo-source-card"
-                            style="border-color: #24a1de;"
-                        >
-                            <span class="demo-label" style="color: #24a1de;"
-                                >Qdrant</span
-                            >
-                            <code style="font-size: 0.7rem; color: #24a1de;"
-                                >{"filter: { must: [...] }"}</code
-                            >
+                        <div class="demo-source-card">
+                            <span class="demo-label">QDRANT</span>
+                            <pre><code>&#123; "must": [&#123; "key": "active", "match": true &#125;] &#125;</code></pre>
                         </div>
                     </div>
                 </div>
