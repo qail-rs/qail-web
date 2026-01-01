@@ -36,7 +36,7 @@
             const path_to_root = "../";
             const default_light_theme = "coal";
             const default_dark_theme = "coal";
-            window.path_to_searchindex_js = "../searchindex-e82c8622.js";
+            window.path_to_searchindex_js = "../searchindex-8b4a691a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-79c9fb58.js"></script>
@@ -182,66 +182,93 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="migration-impact-analyzer"><a class="header" href="#migration-impact-analyzer">Migration Impact Analyzer</a></h1>
-<p>The Migration Impact Analyzer scans your codebase before running migrations to detect breaking changes that could cause runtime errors.</p>
+<p>Prevents runtime errors by scanning your codebase before running migrations.</p>
 <h2 id="why-use-it"><a class="header" href="#why-use-it">Why Use It?</a></h2>
 <p>Dropping a table or column is easy—but if your code still references it, you’ll get runtime errors. The analyzer:</p>
 <ol>
-<li><strong>Scans your codebase</strong> for QAIL and raw SQL queries</li>
+<li><strong>Scans your codebase</strong> for QAIL AST and raw SQL queries</li>
 <li><strong>Detects breaking changes</strong> like dropped tables/columns</li>
-<li><strong>Shows exact file locations</strong> where code needs updating</li>
-<li><strong>Prevents downtime</strong> by catching issues before they hit production</li>
+<li><strong>Shows exact file:line locations</strong> with code snippets</li>
+<li><strong>Prevents downtime</strong> by catching issues before production</li>
 </ol>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
 <pre><code class="language-bash">qail migrate analyze old.qail:new.qail --codebase ./src
 </code></pre>
-<h2 id="example-output"><a class="header" href="#example-output">Example Output</a></h2>
+<h2 id="real-world-example"><a class="header" href="#real-world-example">Real-World Example</a></h2>
+<p>Testing against a production codebase:</p>
 <pre><code>🔍 Migration Impact Analyzer
 
-  Schema: old.qail → new.qail
-  Codebase: ./src
+  Schema: 001_initial_schema.up.qail → breaking_change.qail
+  Codebase: ~/api.fortunebali.com/src
 
 Scanning codebase...
-  Found 395 query references
+🔍 Analyzing files...
+   ├── 🦀 main.rs (AST: 60 refs)
+   └── 1 files analyzed
+
+  Found 60 query references
 
 ⚠️  BREAKING CHANGES DETECTED
 
 Affected files: 1
 
-┌─ DROP TABLE promotions (6 references) ─────────────────────────┐
-│ ❌ src/repository/promotion.rs:89 → INSERT INTO promotions (
-│ ❌ src/repository/promotion.rs:264 → SELECT COUNT(*) FROM promotions
-│ ❌ src/repository/promotion.rs:288 → UPDATE promotions SET
-│ ❌ src/repository/promotion.rs:345 → DELETE FROM promotions WHERE
-└────────────────────────────────────────────────────────────────┘
+┌─ DROP TABLE admin_otps (11 references) ─────────────────────────┐
+│ ❌ main.rs:397 → Qail::del("admin_otps")
+│ ❌ main.rs:402 → Qail::add("admin_otps")
+│ ❌ main.rs:403 → .columns(["email", "code_hash", "expires_at"])
+│ ... and 8 more
+└──────────────────────────────────────────────────────────────────┘
+
+┌─ DROP TABLE inquiries (11 references) ─────────────────────────┐
+│ ❌ main.rs:238 → Qail::add("inquiries")
+│ ❌ main.rs:239 → .columns(["name", "email", ...])
+│ ... and 9 more
+└──────────────────────────────────────────────────────────────────┘
+
+┌─ DROP COLUMN portfolio.status (2 references) ─────────────────┐
+│ ❌ main.rs:179 → uses status in .columns(["id" +8])
+│ ⚠️  RAW SQL main.rs:225 → "SELECT id, title, status FROM..."
+└──────────────────────────────────────────────────────────────────┘
 
 What would you like to do?
-  1. Run anyway (DANGEROUS - will cause 1 runtime errors)
+  1. Run anyway (DANGEROUS - will cause 5 runtime errors)
   2. Dry-run first (show SQL, don't execute)
   3. Let me fix the code first (exit)
 </code></pre>
-<h2 id="supported-query-patterns"><a class="header" href="#supported-query-patterns">Supported Query Patterns</a></h2>
-<p>The analyzer detects:</p>
-<h3 id="qail-queries"><a class="header" href="#qail-queries">QAIL Queries</a></h3>
-<ul>
-<li><code>get::users</code> → SELECT from users</li>
-<li><code>set::users</code> → UPDATE users</li>
-<li><code>add::users</code> → INSERT INTO users</li>
-<li><code>del::users</code> → DELETE FROM users</li>
-</ul>
-<h3 id="raw-sql"><a class="header" href="#raw-sql">Raw SQL</a></h3>
-<ul>
-<li><code>SELECT ... FROM table</code></li>
-<li><code>INSERT INTO table</code></li>
-<li><code>UPDATE table SET</code></li>
-<li><code>DELETE FROM table</code></li>
-</ul>
-<h2 id="supported-file-types"><a class="header" href="#supported-file-types">Supported File Types</a></h2>
-<ul>
-<li><code>.rs</code> (Rust)</li>
-<li><code>.ts</code> (TypeScript)</li>
-<li><code>.js</code> (JavaScript)</li>
-<li><code>.py</code> (Python)</li>
-</ul>
+<h2 id="dual-mode-scanning"><a class="header" href="#dual-mode-scanning">Dual-Mode Scanning</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>Badge</th><th>Detection</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Rust AST</strong></td><td>🦀</td><td>Full syntax tree analysis for <code>Qail::get()</code>, <code>Qail::add()</code>, etc.</td></tr>
+<tr><td><strong>Regex</strong></td><td>📘📍🐍</td><td>Pattern matching for raw SQL in TypeScript, JavaScript, Python</td></tr>
+</tbody>
+</table>
+</div>
+<p>The analyzer auto-detects file types and uses the most appropriate scanning method.</p>
+<h2 id="rollback-safety-analysis"><a class="header" href="#rollback-safety-analysis">Rollback Safety Analysis</a></h2>
+<blockquote class="blockquote-tag blockquote-tag-warning">
+<p class="blockquote-tag-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p><strong>Data-Destructive Changes Cannot Be Rolled Back!</strong></p>
+</blockquote>
+<p>Some migrations are irreversible. The analyzer identifies:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Change</th><th>Rollback Safe?</th><th>Why</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ADD COLUMN</code></td><td>✅ Yes</td><td>Can <code>DROP COLUMN</code></td></tr>
+<tr><td><code>DROP COLUMN</code></td><td>❌ <strong>No</strong></td><td><strong>Data lost permanently</strong></td></tr>
+<tr><td><code>DROP TABLE</code></td><td>❌ <strong>No</strong></td><td><strong>Data lost permanently</strong></td></tr>
+<tr><td><code>RENAME</code></td><td>✅ Yes</td><td>Can rename back</td></tr>
+<tr><td><code>ADD INDEX</code></td><td>✅ Yes</td><td>Can drop index</td></tr>
+<tr><td><code>TRUNCATE</code></td><td>❌ <strong>No</strong></td><td><strong>Data lost permanently</strong></td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="breaking-change-types"><a class="header" href="#breaking-change-types">Breaking Change Types</a></h2>
 <div class="table-wrapper">
 <table>
@@ -249,13 +276,22 @@ What would you like to do?
 <tr><th>Change Type</th><th>Severity</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>DROP TABLE</code></td><td>🔴 Critical</td><td>Table referenced in code will cause runtime errors</td></tr>
+<tr><td><code>DROP TABLE</code></td><td>🔴 Critical</td><td>Table referenced in code → runtime errors</td></tr>
 <tr><td><code>DROP COLUMN</code></td><td>🔴 Critical</td><td>Column queries will fail</td></tr>
-<tr><td><code>RENAME</code></td><td>🟡 Warning</td><td>Code needs updating to use new name</td></tr>
-<tr><td><code>TYPE CHANGE</code></td><td>🟡 Warning</td><td>May cause type mismatch errors</td></tr>
+<tr><td><code>RENAME TABLE</code></td><td>🟡 Warning</td><td>Code needs updating</td></tr>
+<tr><td><code>RENAME COLUMN</code></td><td>🟡 Warning</td><td>Code needs updating</td></tr>
+<tr><td><code>TYPE CHANGE</code></td><td>🟡 Warning</td><td>May cause type mismatch</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="cicd-integration"><a class="header" href="#cicd-integration">CI/CD Integration</a></h2>
+<p>For GitHub Actions, use <code>--ci</code> flag for annotations:</p>
+<pre><code class="language-yaml">- name: Check migration safety
+  run: qail migrate analyze $OLD:$NEW --codebase ./src --ci
+</code></pre>
+<p>This outputs GitHub Actions annotations that appear inline in PR diffs:</p>
+<pre><code>::error file=src/main.rs,line=225,title=Breaking Change::Column 'portfolio.status' is being dropped but referenced here
+</code></pre>
 <h2 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h2>
 <ol>
 <li>
@@ -265,17 +301,18 @@ qail migrate up old.qail:new.qail $DATABASE_URL
 </code></pre>
 </li>
 <li>
-<p><strong>Add to CI/CD pipeline</strong></p>
-<pre><code class="language-yaml">- name: Check migration safety
-  run: qail migrate analyze $OLD:$NEW --codebase ./src
-</code></pre>
-</li>
-<li>
 <p><strong>Use with <code>migrate plan</code> for full preview</strong></p>
 <pre><code class="language-bash">qail migrate plan old.qail:new.qail     # See SQL
 qail migrate analyze old.qail:new.qail  # Check codebase
 qail migrate up old.qail:new.qail $URL  # Apply
 </code></pre>
+</li>
+<li>
+<p><strong>Handle irreversible changes carefully</strong></p>
+<ul>
+<li>Backup data before <code>DROP TABLE</code> or <code>DROP COLUMN</code></li>
+<li>Consider soft-delete (add <code>deleted_at</code> column) instead of hard delete</li>
+</ul>
 </li>
 </ol>
 

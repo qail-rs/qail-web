@@ -15,12 +15,149 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <main class="page-content">
         <div class="container" style="max-width: 900px;">
+            <!-- v0.14.8 -->
+            <section class="release-section">
+                <div class="release-header">
+                    <h2>v0.14.8</h2>
+                    <span class="release-date">January 1, 2026</span>
+                    <span class="status-badge full">Latest</span>
+                </div>
+
+                <div class="release-highlight">
+                    <span style="font-size: 1.5rem;">🔒</span>
+                    <strong>Production Hardening</strong> - Connection lifecycle,
+                    identity columns
+                </div>
+
+                <h4>Features</h4>
+                <ul class="changelog-list">
+                    <li>
+                        <strong>Terminate on Drop:</strong> Sends 'X' packet for graceful
+                        connection cleanup
+                    </li>
+                    <li>
+                        <strong>Identity Columns:</strong> GENERATED ALWAYS AS IDENTITY
+                        support
+                    </li>
+                    <li>
+                        <strong>SERIAL Fix:</strong> Correctly converts to INTEGER
+                        in ALTER TABLE
+                    </li>
+                </ul>
+
+                <h4>Verified</h4>
+                <ul class="changelog-list">
+                    <li>
+                        Pool overhead: <strong>9.5μs/checkout</strong> (excellent)
+                    </li>
+                    <li>3D/4D arrays: Work correctly</li>
+                    <li>All chaos tests passed</li>
+                </ul>
+            </section>
+
+            <!-- v0.14.7 -->
+            <section class="release-section">
+                <div class="release-header">
+                    <h2>v0.14.7</h2>
+                    <span class="release-date">January 1, 2026</span>
+                </div>
+
+                <div class="release-highlight">
+                    <span style="font-size: 1.5rem;">🏢</span>
+                    <strong>Enterprise Shadow Migrations</strong> - PlanetScale for
+                    Everyone
+                </div>
+
+                <h4>Features</h4>
+                <ul class="changelog-list">
+                    <li>
+                        <strong>COPY Streaming:</strong> Zero-dependency data sync
+                        (100+ rows/sec)
+                    </li>
+                    <li>
+                        <strong>State Persistence:</strong>
+                        <code>_qail_shadow_state</code> table for recovery
+                    </li>
+                    <li>
+                        <strong>Safe Promote:</strong> Apply to primary, don't swap
+                        databases
+                    </li>
+                    <li>
+                        <strong>Column Intersection:</strong> Handles ADD/DROP COLUMN
+                        correctly
+                    </li>
+                    <li>
+                        <strong>Data Drift Warning:</strong> Warns about changes since
+                        sync
+                    </li>
+                </ul>
+
+                <h4>Stress Tested</h4>
+                <ul class="changelog-list">
+                    <li>Promote without shadow → proper error</li>
+                    <li>Double abort → idempotent</li>
+                    <li>ADD COLUMN migration → verified</li>
+                </ul>
+            </section>
+
+            <!-- v0.14.6 -->
+            <section class="release-section">
+                <div class="release-header">
+                    <h2>v0.14.6</h2>
+                    <span class="release-date">January 1, 2026</span>
+                </div>
+
+                <div class="release-highlight">
+                    <span style="font-size: 1.5rem;">🚀</span>
+                    <strong>1.3M Queries/Second</strong> - 10-Connection Pool Benchmark
+                </div>
+
+                <h4>Fixed</h4>
+                <ul class="changelog-list">
+                    <li>
+                        Shadow migration bug - now applies base schema before
+                        diff commands
+                    </li>
+                    <li>
+                        Added <code>schema_to_commands()</code> for AST-native schema
+                        conversion
+                    </li>
+                    <li>
+                        Updated Migration Impact Analyzer docs with real test
+                        output
+                    </li>
+                </ul>
+
+                <h4>Performance</h4>
+                <ul class="changelog-list">
+                    <li>
+                        <strong>Pool Benchmark:</strong> 78M queries in 60s with 10
+                        connections
+                    </li>
+                    <li>
+                        <strong>Single vs Pool:</strong> 336K q/s → 1.3M q/s (~4x
+                        throughput)
+                    </li>
+                </ul>
+
+                <h4>Added</h4>
+                <ul class="changelog-list">
+                    <li>
+                        Shadow migration shows <code>[1.5/4]</code> step for base
+                        schema
+                    </li>
+                    <li>Rollback Safety Analysis table in analyzer docs</li>
+                    <li>
+                        CI/CD integration with GitHub Actions <code>--ci</code> flag
+                    </li>
+                </ul>
+            </section>
+
             <!-- v0.14.4 -->
             <section class="release-section">
                 <div class="release-header">
                     <h2>v0.14.4</h2>
                     <span class="release-date">December 31, 2025</span>
-                    <span class="status-badge full">Latest</span>
                 </div>
 
                 <div class="release-highlight">
