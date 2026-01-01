@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
@@ -88,11 +88,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <main class="page-content">
         <div class="container">
             <div class="benchmark-list">
-                <!-- ORM Benchmark - Latest -->
-                <a href="/benchmark/orm-50k" class="benchmark-card">
+                <!-- Qdrant Benchmark - Newest -->
+                <a
+                    href="/benchmarks/qdrant-january-2026"
+                    class="benchmark-card"
+                >
                     <div class="date">
-                        December 31, 2025 <span class="latest-badge">NEW</span>
+                        January 1, 2026 <span class="latest-badge">NEW</span>
                     </div>
+                    <div class="title">
+                        🚀 Qdrant Vector Search <span class="badge-metric"
+                            >4x faster</span
+                        >
+                    </div>
+                    <div class="summary">
+                        QAIL's Qdrant driver achieves 4.00x speedup in batch
+                        queries using HTTP/2 pipelining. Zero-copy buffer
+                        pooling and direct wire protocol delivers 1.17x faster
+                        single queries than official client.
+                    </div>
+                </a>
+
+                <!-- ORM Benchmark -->
+                <a href="/benchmarks/orm-50k" class="benchmark-card">
+                    <div class="date">December 31, 2025</div>
                     <div class="title">
                         🏎️ ORM Benchmark: 50K Queries <span class="badge-metric"
                             >27% faster</span
@@ -106,7 +125,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </a>
 
                 <!-- Go IPC 50M Benchmark -->
-                <a href="/benchmark/go-ipc-50m" class="benchmark-card">
+                <a href="/benchmarks/go-ipc-50m" class="benchmark-card">
                     <div class="date">December 27, 2025</div>
                     <div class="title">
                         🔌 Go IPC: 50 Million Queries <span class="badge-metric"
@@ -121,10 +140,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </a>
 
                 <!-- Python IPC Benchmark -->
-                <a href="/benchmark/python-ipc" class="benchmark-card">
-                    <div class="date">
-                        December 27, 2025 <span class="latest-badge">NEW</span>
-                    </div>
+                <a href="/benchmarks/python-ipc" class="benchmark-card">
+                    <div class="date">December 27, 2025</div>
                     <div class="title">
                         🐍 Python IPC: 10 Million Queries <span
                             class="badge-metric">2x PyO3</span
@@ -138,7 +155,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </a>
 
                 <!-- Zig 50M Benchmark -->
-                <a href="/benchmark/zig-50m" class="benchmark-card">
+                <a href="/benchmarks/zig-50m" class="benchmark-card">
                     <div class="date">December 27, 2025</div>
                     <div class="title">
                         🦎 Zig: 50 Million Queries <span class="badge-metric"
@@ -153,7 +170,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </a>
 
                 <!-- Cross-Language Benchmark -->
-                <a href="/benchmark/december-2025-27" class="benchmark-card">
+                <a href="/benchmarks/december-2025-27" class="benchmark-card">
                     <div class="date">December 27, 2025</div>
                     <div class="title">
                         Cross-Language Performance <span class="badge-metric"
@@ -168,7 +185,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </a>
 
                 <!-- Previous Benchmark -->
-                <a href="/benchmark/december-2025-26" class="benchmark-card">
+                <a href="/benchmarks/december-2025-26" class="benchmark-card">
                     <div class="date">December 26, 2025</div>
                     <div class="title">
                         100M Row COPY Benchmark <span class="badge-metric"
@@ -183,7 +200,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </a>
 
                 <!-- Previous Benchmark -->
-                <a href="/benchmark/december-2025-23" class="benchmark-card">
+                <a href="/benchmarks/december-2025-23" class="benchmark-card">
                     <div class="date">December 23, 2025</div>
                     <div class="title">
                         172x Pipelining Speedup <span class="badge-metric"
